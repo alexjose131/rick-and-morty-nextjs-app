@@ -21,7 +21,7 @@
    3.5.2 [X] Sidebar
    3.5.3 [] Crear personajes
    3.5.4 [] Consulta de personajes
-   3.5.4.1 [] Muestre los personajes en una tabla, mostrando los datos más relevantes
+   3.5.4.1 [X] Muestre los personajes en una tabla, mostrando los datos más relevantes
    3.5.4.2 [] La sección de permitir filtrado de los personajes por especie, tipo, género y nombre
    3.5.4.3 [] Debe permitir mutar los datos de los personajes a través de un menú de opciones en cada fila de la tabla. Entre las opciones debe permitir Cambiar datos básicos o cambiar el status del personaje
    3.5.5 [] Crear episodios

@@ -75,7 +75,11 @@ export function Sidebar() {
             className="mb-5"
           ></Image>
           {options.map((item) => (
-            <Link href={item.path} className="flex w-full p-0 m-0 ">
+            <Link
+              key={item.path}
+              href={item.path}
+              className="flex w-full p-0 m-0 "
+            >
               <Button
                 variant="default"
                 className={`${
