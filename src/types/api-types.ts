@@ -26,8 +26,10 @@ export interface CharacterResult {
 }
 
 export enum Gender {
-  Female = "Female",
-  Male = "Male",
+  female = "female",
+  male = "male",
+  genderless = "genderless",
+  unknown = "unknown",
 }
 
 export interface Location {
@@ -36,14 +38,14 @@ export interface Location {
 }
 
 export enum Species {
-  Alien = "Alien",
-  Human = "Human",
+  alien = "alien",
+  human = "human",
 }
 
 export enum Status {
-  Alive = "Alive",
-  Dead = "Dead",
-  Unknown = "unknown",
+  alive = "alive",
+  dead = "dead",
+  unknown = "unknown",
 }
 
 export enum Type {
