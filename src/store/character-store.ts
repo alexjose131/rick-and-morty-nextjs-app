@@ -17,9 +17,9 @@ const characterStoreSlice: StateCreator<CharacterState> = (set, get) => ({
   setCharacters: (characters: CharacterResult[]) => {
     set({ characters: characters });
   },
-  setNewCharacter: (characters: CharacterResult) => {
+  setNewCharacter: (character: CharacterResult) => {
     const { newCharacters } = get();
-    set({ newCharacters: [...newCharacters, characters] });
+    set({ newCharacters: [character, ...newCharacters] });
   },
   updateCharacter: (character: CharacterResult) => {
     const { characters: charactersStore } = get();

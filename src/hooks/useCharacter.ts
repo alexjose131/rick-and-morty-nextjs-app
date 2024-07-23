@@ -74,7 +74,6 @@ export function useCharacter() {
 
         return matchesName && matchesGender && matchesSpecies && matchesType;
       });
-      console.log(filteredCharacters);
       setFilteredNewCharacters(filteredCharacters);
     },
     [newCharacters, setFilteredNewCharacters]

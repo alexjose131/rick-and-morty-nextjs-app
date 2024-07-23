@@ -30,7 +30,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { EditIcon, OptionsIcon } from "@/components/common/Icons";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  EditIcon,
+  OptionsIcon,
+} from "@/components/common/Icons";
 import { useRouter } from "next/navigation";
 
 export default function CharacterPage() {
@@ -159,14 +164,14 @@ export default function CharacterPage() {
             onClick={() => prevPage()}
             disabled={page === 1}
           >
-            {"<"}
+            <ChevronLeftIcon />
           </Button>
           <Button
             variant="outline"
             onClick={() => nextPage()}
             disabled={page === maxPage}
           >
-            {">"}
+            <ChevronRightIcon />
           </Button>
         </div>
       </section>
