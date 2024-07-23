@@ -2,7 +2,7 @@
 
 ### BASIC INFO
 
-1. [] Crea un repositorio en GITHUB Publico, utiliza GITFLOW para crear FEATURE para cada funcionalidad nueva.
+1. [x] Crea un repositorio en GITHUB Publico, utiliza GITFLOW para crear FEATURE para cada funcionalidad nueva.
 2. [x] Crea un proyecto simple utilizando las API's de Rick and Morty como fuente de informacion https://rickandmortyapi.com/documentation/. Las características del proyecto deben ser las siguientes:
        [X] a. FrameWork: React.JS, Next.JS y Tailwind
        [X] b. Librería de componentes: SHADCN
@@ -17,8 +17,8 @@
    3.4 [] Almacene la información consultada de las API en local para poder cambiar o agregar nuevos datos
    #### SPECS SECTIONS
    3.5 [] El proyecto debe contener las siguientes secciones:
-   3.5.1 [] Login
-   3.5.2 [] Sidebar
+   3.5.1 [X] Login
+   3.5.2 [X] Sidebar
    3.5.3 [] Crear personajes
    3.5.4 [] Consulta de personajes
    3.5.4.1 [] Muestre los personajes en una tabla, mostrando los datos más relevantes
