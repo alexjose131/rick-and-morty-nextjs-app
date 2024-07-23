@@ -143,11 +143,11 @@ export default function CharacterPage() {
           </form>
         </Form>
       </section>
-      <section className="flex justify-between w-full gap-2">
+      <section className="flex justify-between w-full">
         <div>
           <Button variant="default">Nuevo personaje</Button>
         </div>
-        <div>
+        <div className="flex gap-2">
           <Button
             variant="outline"
             onClick={() => prevPage()}
