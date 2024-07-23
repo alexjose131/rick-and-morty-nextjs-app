@@ -143,7 +143,7 @@ export default function CharacterPage() {
           </form>
         </Form>
       </section>
-      <section className="flex justify-between w-full">
+      <section className="flex justify-between w-full my-2">
         <div>
           <Button variant="default">Nuevo personaje</Button>
         </div>
