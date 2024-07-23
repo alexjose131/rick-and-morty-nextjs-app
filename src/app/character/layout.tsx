@@ -11,7 +11,7 @@ export default function RootLayout({
         <div>
           <Sidebar />
         </div>
-        <div className="flex flex-col justify-center items-center min-h-screen h-full px-5 lg:pt-5 lg:px-20">
+        <div className="flex flex-col items-center min-h-screen h-full py-10 ">
           {children}
         </div>
       </body>

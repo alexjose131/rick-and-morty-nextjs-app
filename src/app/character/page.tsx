@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import { useCharacter } from "@/hooks/useCharacter";
 import { CharacterFilters } from "@/types/app-types";
 import { Gender } from "@/types/api-types";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 export default function CharacterPage() {
   const {
@@ -34,56 +35,104 @@ export default function CharacterPage() {
     nextPage,
     updateFilters,
   } = useCharacter();
-  const { register, handleSubmit } = useForm<CharacterFilters>();
+  const form = useForm<CharacterFilters>();
 
   const handleFilterSubmit = (data: CharacterFilters) => {
+    console.log(data);
     updateFilters(data);
   };
 
   return (
     <>
-      <h2 className="text-start text-3xl mb-10 md:mb-20">Personajes</h2>
+      <h2 className="text-start text-3xl mb-10">Personajes</h2>
       <section className="mb-5 w-full">
         <p className="text-sm text-gray-300">Filtrar personajes:</p>
-        <form
-          action=""
-          className="flex gap-2 flex-col md:flex-row"
-          onSubmit={handleSubmit(handleFilterSubmit)}
-        >
-          <Input
-            type="text"
-            placeholder="Nombre del personaje"
-            className="placeholder:text-gray-300"
-            {...register("name", { required: false })}
-          />
-          <Input
-            type="text"
-            placeholder="Especie"
-            className="placeholder:text-gray-300"
-            {...register("species", { required: false })}
-          />
-          <Input
-            type="text"
-            placeholder="Tipo"
-            className="placeholder:text-gray-300"
-            {...register("type", { required: false })}
-          />
-          <Select {...register("gender", { required: false })}>
-            <SelectTrigger className="text-gray-300">
-              <SelectValue placeholder="Género" />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.values(Gender).map((gender) => (
-                <SelectItem key={gender} value={gender}>
-                  {gender}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Button type="submit" className="w-full">
-            Filtrar
-          </Button>
-        </form>
+        <Form {...form}>
+          <form
+            action=""
+            className="flex gap-2 flex-col md:flex-row"
+            onSubmit={form.handleSubmit(handleFilterSubmit)}
+          >
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Nombre del personaje"
+                      className="placeholder:text-gray-300"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            ></FormField>
+
+            <FormField
+              control={form.control}
+              name="species"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input
+                      type="species"
+                      placeholder="Especie"
+                      className="placeholder:text-gray-300"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            ></FormField>
+
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Tipo"
+                      className="placeholder:text-gray-300"
+                      {...field}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            ></FormField>
+
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="text-gray-300">
+                        <SelectValue placeholder="Género" />
+                      </SelectTrigger>
+                    </FormControl>
+
+                    <SelectContent>
+                      {Object.values(Gender).map((gender) => (
+                        <SelectItem key={gender} value={gender}>
+                          {gender}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            ></FormField>
+
+            <Button type="submit" className="w-full">
+              Filtrar
+            </Button>
+          </form>
+        </Form>
       </section>
       <section className="flex justify-end w-full gap-2">
         <Button
@@ -107,9 +156,10 @@ export default function CharacterPage() {
             <TableRow>
               <TableHead className="text-secondary">Avatar</TableHead>
               <TableHead className="text-secondary">Nombre</TableHead>
-              <TableHead className="text-secondary">Estado</TableHead>
-              <TableHead className="text-secondary">Especie</TableHead>
               <TableHead className="text-secondary">Género</TableHead>
+              <TableHead className="text-secondary">Especie</TableHead>
+              <TableHead className="text-secondary">Estado</TableHead>
+              <TableHead className="text-secondary">Tipo</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -121,9 +171,10 @@ export default function CharacterPage() {
                   </Avatar>
                 </TableCell>
                 <TableCell>{item.name}</TableCell>
-                <TableCell>{item.status}</TableCell>
-                <TableCell>{item.species}</TableCell>
                 <TableCell>{item.gender}</TableCell>
+                <TableCell>{item.species}</TableCell>
+                <TableCell>{item.status}</TableCell>
+                <TableCell>{item.type}</TableCell>
               </TableRow>
             ))}
           </TableBody>
