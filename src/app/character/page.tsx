@@ -32,7 +32,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { EditIcon, OptionsIcon } from "@/components/common/Icons";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function CharacterPage() {
   const router = useRouter();
@@ -47,10 +46,6 @@ export default function CharacterPage() {
     updateFilters,
   } = useCharacter();
   const form = useForm<CharacterFilters>();
-
-  useEffect(() => {
-    console.log(filteredNewCharacters);
-  }, [filteredNewCharacters]);
 
   const handleFilterSubmit = (data: CharacterFilters) => {
     updateFilters(data);
@@ -190,7 +185,41 @@ export default function CharacterPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {[...characters, ...filteredNewCharacters].map((item) => (
+              {page === 1 &&
+                filteredNewCharacters.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>
+                      <Avatar>
+                        <AvatarImage
+                          src={item.image ? item.image : "/logo.svg"}
+                        />
+                      </Avatar>
+                    </TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.gender}</TableCell>
+                    <TableCell>{item.species}</TableCell>
+                    <TableCell>{item.type}</TableCell>
+                    <TableCell>{item.status}</TableCell>
+
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <OptionsIcon className="hover:text-accent" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>
+                            <EditIcon /> Editar datos básicos
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <EditIcon /> Editar estado
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+              {characters.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
                     <Avatar>
