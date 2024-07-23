@@ -7,13 +7,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning={true}>
         <div>
           <Sidebar />
         </div>
-        <div className="flex flex-col justify-center items-center min-h-screen h-full px-5 lg:px-20">
-          {children}
-        </div>
+        <div className="py-10  px-20 ">{children}</div>
       </body>
     </html>
   );

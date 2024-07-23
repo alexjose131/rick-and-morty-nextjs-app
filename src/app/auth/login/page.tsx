@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { credentialsSchema } from "@/schemas/credentialsSchema";
 import { Input } from "@/components/ui/input";
+import { CredentialsInputs } from "@/types/app-types";
 
 export default function LoginPage() {
   const {
