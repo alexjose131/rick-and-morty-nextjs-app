@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 5rem;
+  }
+  :root {
+    --background: 210 10% 10%; /* Fondo general */
+    --foreground: 0 0% 100%; /* Texto principal */
+    --card: 0 0% 100%; /* Tarjetas o paneles */
+    --card-foreground: 210 10% 10%; /* Texto en tarjetas */
+    --popover: 0 0% 100%; /* Popovers o modales */
+    --popover-foreground: 210 10% 10%; /* Texto en popovers */
+    --primary: 270 60% 50%; /* Color primario (puedes ajustar según preferencias) */
+    --primary-foreground: 0 0% 100%; /* Texto sobre color primario */
+    --secondary: 30 100% 50%; /* Color secundario (puedes ajustar según preferencias) */
+    --secondary-foreground: 0 0% 100%; /* Texto sobre color secundario */
+    --muted: 240 5% 15%; /* Colores suaves o secundarios */
+    --muted-foreground: 0 0% 100%; /* Texto sobre colores suaves */
+    --accent: 120 50% 50%; /* Acentos o destacados */
+    --accent-foreground: 0 0% 100%; /* Texto sobre acentos */
+    --destructive: 0 100% 50%; /* Acciones destructivas o peligrosas */
+    --destructive-foreground: 0 0% 100%; /* Texto sobre acciones destructivas */
+    --border: 210 10% 30%; /* Color de bordes */
+    --input: 210 10% 30%; /* Fondos de inputs */
+    --ring: 0 0% 100%; /* Anillos o contornos */
+    --radius: 0.5rem; /* Radio de borde */
+    --chart-1: 0 0% 100%; /* Colores para gráficos */
+    --chart-2: 0 0% 100%; /* Colores para gráficos */
+    --chart-3: 0 0% 100%; /* Colores para gráficos */
+    --chart-4: 0 0% 100%; /* Colores para gráficos */
+    --chart-5: 0 0% 100%; /* Colores para gráficos */
+  }
+
+  .dark {
+    --background: 210 5% 8%; /* Fondo general en modo oscuro */
+    --foreground: 0 0% 100%; /* Texto principal en modo oscuro */
+    --card: 0 0% 100%; /* Tarjetas o paneles en modo oscuro */
+    --card-foreground: 210 5% 8%; /* Texto en tarjetas en modo oscuro */
+    --popover: 0 0% 100%; /* Popovers o modales en modo oscuro */
+    --popover-foreground: 210 5% 8%; /* Texto en popovers en modo oscuro */
+    --primary: 30 100% 50%; /* Color primario en modo oscuro */
+    --primary-foreground: 0 0% 100%; /* Texto sobre color primario en modo oscuro */
+    --secondary: 240 5% 15%; /* Color secundario en modo oscuro */
+    --secondary-foreground: 0 0% 100%; /* Texto sobre color secundario en modo oscuro */
+    --muted: 240 5% 15%; /* Colores suaves o secundarios en modo oscuro */
+    --muted-foreground: 0 0% 100%; /* Texto sobre colores suaves en modo oscuro */
+    --accent: 120 50% 50%; /* Acentos o destacados en modo oscuro */
+    --accent-foreground: 0 0% 100%; /* Texto sobre acentos en modo oscuro */
+    --destructive: 0 100% 50%; /* Acciones destructivas en modo oscuro */
+    --destructive-foreground: 0 0% 100%; /* Texto sobre acciones destructivas en modo oscuro */
+    --border: 240 5% 25%; /* Color de bordes en modo oscuro */
+    --input: 240 5% 25%; /* Fondos de inputs en modo oscuro */
+    --ring: 0 0% 100%; /* Anillos o contornos en modo oscuro */
+    --chart-1: 0 0% 100%; /* Colores para gráficos en modo oscuro */
+    --chart-2: 0 0% 100%; /* Colores para gráficos en modo oscuro */
+    --chart-3: 0 0% 100%; /* Colores para gráficos en modo oscuro */
+    --chart-4: 0 0% 100%; /* Colores para gráficos en modo oscuro */
+    --chart-5: 0 0% 100%; /* Colores para gráficos en modo oscuro */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border; /* Aplica estilos de borde globalmente */
+  }
+  body {
+    @apply bg-background text-foreground; /* Aplica colores de fondo y texto globalmente */
+  }
+}
