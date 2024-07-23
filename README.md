@@ -14,12 +14,12 @@
    3.1 [X] Utilice el diseño y colores personalizados para el Branding del proyecto a su elección.
    3.2 [X] Puede utilizar componentes y estilados propios o directamente reutilizar de la librería de componente
    3.3 [X] Utilice Fetch para hacer las peticiones y manejo de errores.
-   3.4 [] Almacene la información consultada de las API en local para poder cambiar o agregar nuevos datos
+   3.4 [X] Almacene la información consultada de las API en local para poder cambiar o agregar nuevos datos
    #### SPECS SECTIONS
    3.5 [] El proyecto debe contener las siguientes secciones:
    3.5.1 [X] Login
    3.5.2 [X] Sidebar
-   3.5.3 [] Crear personajes
+   3.5.3 [X] Crear personajes
    3.5.4 [] Consulta de personajes
    3.5.4.1 [X] Muestre los personajes en una tabla, mostrando los datos más relevantes
    3.5.4.2 [X] La sección de permitir filtrado de los personajes por especie, tipo, género y nombre

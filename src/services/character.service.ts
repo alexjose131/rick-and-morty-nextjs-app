@@ -12,5 +12,6 @@ export const fetchCharacters = async (
     type ? `&type=${type}` : ""
   }${gender ? `&gender=${gender}` : ""}${name ? `&name=${name}` : ""}`;
 
-  return await fetch(`${CHARACTER_URL}?page=${page}` + filterString);
+  const response = await fetch(`${CHARACTER_URL}?page=${page}` + filterString);
+  return await response.json();
 };
