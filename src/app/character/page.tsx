@@ -28,16 +28,22 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { EditIcon, OptionsIcon } from "@/components/common/Icons";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  EditIcon,
+  OptionsIcon,
+} from "@/components/common/Icons";
+import { useRouter } from "next/navigation";
 
 export default function CharacterPage() {
+  const router = useRouter();
   const {
     error,
     characters,
+    filteredNewCharacters,
     page,
     maxPage,
     prevPage,
@@ -47,8 +53,11 @@ export default function CharacterPage() {
   const form = useForm<CharacterFilters>();
 
   const handleFilterSubmit = (data: CharacterFilters) => {
-    console.log(data);
     updateFilters(data);
+  };
+
+  const handleCreationClick = () => {
+    router.push("/character/create");
   };
 
   return (
@@ -145,7 +154,9 @@ export default function CharacterPage() {
       </section>
       <section className="flex flex-col gap-2 md:gap-0 md:flex-row items-center justify-center md:justify-between w-full my-2">
         <div>
-          <Button variant="default">Nuevo personaje</Button>
+          <Button variant="default" onClick={() => handleCreationClick()}>
+            Nuevo personaje
+          </Button>
         </div>
         <div className="flex gap-2">
           <Button
@@ -153,64 +164,104 @@ export default function CharacterPage() {
             onClick={() => prevPage()}
             disabled={page === 1}
           >
-            {"<"}
+            <ChevronLeftIcon />
           </Button>
           <Button
             variant="outline"
             onClick={() => nextPage()}
             disabled={page === maxPage}
           >
-            {">"}
+            <ChevronRightIcon />
           </Button>
         </div>
       </section>
-      <section className="w-full">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-secondary"></TableHead>
-              <TableHead className="text-secondary">Nombre</TableHead>
-              <TableHead className="text-secondary">Género</TableHead>
-              <TableHead className="text-secondary">Especie</TableHead>
-              <TableHead className="text-secondary">Tipo</TableHead>
-              <TableHead className="text-secondary">Estado</TableHead>
-              <TableHead className="text-secondary"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {characters.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>
-                  <Avatar>
-                    <AvatarImage src={item.image} />
-                  </Avatar>
-                </TableCell>
-                <TableCell>{item.name}</TableCell>
-                <TableCell>{item.gender}</TableCell>
-                <TableCell>{item.species}</TableCell>
-                <TableCell>{item.type}</TableCell>
-                <TableCell>{item.status}</TableCell>
-
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger>
-                      <OptionsIcon className="hover:text-accent" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <DropdownMenuItem>
-                        <EditIcon /> Editar datos básicos
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <EditIcon /> Editar estado
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
+      {[...filteredNewCharacters, ...characters].length > 0 ? (
+        <section className="w-full">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-secondary"></TableHead>
+                <TableHead className="text-secondary">Nombre</TableHead>
+                <TableHead className="text-secondary">Género</TableHead>
+                <TableHead className="text-secondary">Especie</TableHead>
+                <TableHead className="text-secondary">Tipo</TableHead>
+                <TableHead className="text-secondary">Estado</TableHead>
+                <TableHead className="text-secondary"></TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </section>
+            </TableHeader>
+            <TableBody>
+              {page === 1 &&
+                filteredNewCharacters.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>
+                      <Avatar>
+                        <AvatarImage
+                          src={item.image ? item.image : "/logo.svg"}
+                        />
+                      </Avatar>
+                    </TableCell>
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.gender}</TableCell>
+                    <TableCell>{item.species}</TableCell>
+                    <TableCell>{item.type}</TableCell>
+                    <TableCell>{item.status}</TableCell>
+
+                    <TableCell>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger>
+                          <OptionsIcon className="hover:text-accent" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem>
+                            <EditIcon /> Editar datos básicos
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <EditIcon /> Editar estado
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+
+              {characters.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>
+                    <Avatar>
+                      <AvatarImage
+                        src={item.image ? item.image : "/logo.svg"}
+                      />
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>{item.gender}</TableCell>
+                  <TableCell>{item.species}</TableCell>
+                  <TableCell>{item.type}</TableCell>
+                  <TableCell>{item.status}</TableCell>
+
+                  <TableCell>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger>
+                        <OptionsIcon className="hover:text-accent" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem>
+                          <EditIcon /> Editar datos básicos
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <EditIcon /> Editar estado
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </section>
+      ) : (
+        <p>No se han encontrado personajes</p>
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ export type CredentialsInputs = {
 
 export type CharacterFilters = {
   species?: string;
-  type?: Status;
+  type?: string;
   gender?: Gender;
   name?: string;
 };

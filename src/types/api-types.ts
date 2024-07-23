@@ -14,14 +14,14 @@ export interface CharacterResult {
   id: number;
   name: string;
   status: Status;
-  species: Species;
-  type: Type;
+  species: string;
+  type: string;
   gender: Gender;
-  origin: Location;
-  location: Location;
-  image: string;
+  origin?: Location;
+  location?: Location;
+  image?: string;
   episode: string[];
-  url: string;
+  url?: string;
   created: Date;
 }
 
@@ -37,19 +37,8 @@ export interface Location {
   url: string;
 }
 
-export enum Species {
-  alien = "alien",
-  human = "human",
-}
-
 export enum Status {
   alive = "alive",
   dead = "dead",
   unknown = "unknown",
-}
-
-export enum Type {
-  Empty = "",
-  GeneticExperiment = "Genetic experiment",
-  SuperhumanGhostTrainsSummoner = "Superhuman (Ghost trains summoner)",
 }
