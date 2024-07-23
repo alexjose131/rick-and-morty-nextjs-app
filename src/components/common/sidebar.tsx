@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CloseIcon, LogOutIcon, MenuIcon } from "./Icons";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import {} from "lucide-react";
 import { useCharacterStore } from "@/store/character-store";
@@ -20,7 +20,8 @@ const options = [
 ];
 
 export function Sidebar() {
-  const [showSidebar, setShowSidebar] = useState(true);
+  const router = useRouter();
+  const [showSidebar, setShowSidebar] = useState(false);
   const { removeCharacters } = useCharacterStore((state) => ({
     removeCharacters: state.removeCharacters,
   }));
@@ -33,6 +34,7 @@ export function Sidebar() {
 
   const handleLogOut = () => {
     removeCharacters();
+    router.push("/auth/login");
   };
 
   return (
