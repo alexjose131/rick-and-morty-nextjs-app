@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
-import { CloseIcon, MenuIcon } from "./Icons";
+import { CloseIcon, LogOutIcon, MenuIcon } from "./Icons";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import {} from "lucide-react";
+import { useCharacterStore } from "@/store/character-store";
 
 const options = [
   {
@@ -18,12 +20,19 @@ const options = [
 ];
 
 export function Sidebar() {
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(true);
+  const { removeCharacters } = useCharacterStore((state) => ({
+    removeCharacters: state.removeCharacters,
+  }));
 
   const pathname = usePathname();
 
   const handleMotion = () => {
     setShowSidebar((prevState) => !prevState);
+  };
+
+  const handleLogOut = () => {
+    removeCharacters();
   };
 
   return (
@@ -65,7 +74,7 @@ export function Sidebar() {
         <div
           className={`${
             !showSidebar && "hidden"
-          } flex-grow flex flex-col items-center space-y-0 align-middle justify-center`}
+          } flex-grow flex flex-col items-center space-y-0 align-middle justify-center `}
         >
           <Image
             src="/logo.svg"
@@ -93,6 +102,20 @@ export function Sidebar() {
             </Link>
           ))}
         </div>
+        <footer
+          className={` ${
+            !showSidebar && "hidden"
+          } flex text-white justify-end mb-5 mr-5 bg-transparent`}
+        >
+          <Button
+            className="hover:text-accent"
+            size="lg"
+            onClick={() => handleLogOut()}
+          >
+            <LogOutIcon />
+            SALIR
+          </Button>
+        </footer>
       </aside>
     </>
   );

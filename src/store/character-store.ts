@@ -45,7 +45,10 @@ const characterStoreSlice: StateCreator<CharacterState> = (set, get) => ({
       set({ newCharacters: structuredNewCharactersStore });
     }
   },
-  removeCharacters: () => {},
+  removeCharacters: () => {
+    set({ characters: [] });
+    set({ newCharacters: [] });
+  },
 });
 
 export const useCharacterStore = create<CharacterState>()(
