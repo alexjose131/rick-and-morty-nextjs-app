@@ -28,13 +28,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EditIcon, OptionsIcon } from "@/components/common/Icons";
+import { useRouter } from "next/navigation";
 
 export default function CharacterPage() {
+  const router = useRouter();
   const {
     error,
     characters,
@@ -44,11 +44,15 @@ export default function CharacterPage() {
     nextPage,
     updateFilters,
   } = useCharacter();
+
   const form = useForm<CharacterFilters>();
 
   const handleFilterSubmit = (data: CharacterFilters) => {
-    console.log(data);
     updateFilters(data);
+  };
+
+  const handleCreationClick = () => {
+    router.push("/character/create");
   };
 
   return (
@@ -145,7 +149,9 @@ export default function CharacterPage() {
       </section>
       <section className="flex flex-col gap-2 md:gap-0 md:flex-row items-center justify-center md:justify-between w-full my-2">
         <div>
-          <Button variant="default">Nuevo personaje</Button>
+          <Button variant="default" onClick={() => handleCreationClick()}>
+            Nuevo personaje
+          </Button>
         </div>
         <div className="flex gap-2">
           <Button
