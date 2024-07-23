@@ -53,7 +53,7 @@ export default function CharacterPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-start text-3xl mb-10">Personajes</h2>
+      <h2 className="text-3xl mb-10">Personajes</h2>
       <section className="mb-5 w-full">
         <p className="text-md text-gray-300 mb-1">Filtrar personajes:</p>
         <Form {...form}>
@@ -143,7 +143,7 @@ export default function CharacterPage() {
           </form>
         </Form>
       </section>
-      <section className="flex justify-between w-full my-2">
+      <section className="flex flex-col gap-2 md:gap-0 md:flex-row items-center justify-center md:justify-between w-full my-2">
         <div>
           <Button variant="default">Nuevo personaje</Button>
         </div>
