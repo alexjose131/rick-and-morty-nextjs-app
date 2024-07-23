@@ -190,7 +190,7 @@ export default function CharacterPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {[...filteredNewCharacters, ...characters].map((item) => (
+              {[...characters, ...filteredNewCharacters].map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
                     <Avatar>
