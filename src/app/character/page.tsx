@@ -24,6 +24,15 @@ import { useCharacter } from "@/hooks/useCharacter";
 import { CharacterFilters } from "@/types/app-types";
 import { Gender } from "@/types/api-types";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { EditIcon, OptionsIcon } from "@/components/common/Icons";
 
 export default function CharacterPage() {
   const {
@@ -43,10 +52,10 @@ export default function CharacterPage() {
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center">
       <h2 className="text-start text-3xl mb-10">Personajes</h2>
       <section className="mb-5 w-full">
-        <p className="text-sm text-gray-300">Filtrar personajes:</p>
+        <p className="text-md text-gray-300 mb-1">Filtrar personajes:</p>
         <Form {...form}>
           <form
             action=""
@@ -134,32 +143,38 @@ export default function CharacterPage() {
           </form>
         </Form>
       </section>
-      <section className="flex justify-end w-full gap-2">
-        <Button
-          variant="outline"
-          onClick={() => prevPage()}
-          disabled={page === 1}
-        >
-          {"<"}
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => nextPage()}
-          disabled={page === maxPage}
-        >
-          {">"}
-        </Button>
+      <section className="flex justify-between w-full gap-2">
+        <div>
+          <Button variant="default">Nuevo personaje</Button>
+        </div>
+        <div>
+          <Button
+            variant="outline"
+            onClick={() => prevPage()}
+            disabled={page === 1}
+          >
+            {"<"}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => nextPage()}
+            disabled={page === maxPage}
+          >
+            {">"}
+          </Button>
+        </div>
       </section>
       <section className="w-full">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-secondary">Avatar</TableHead>
+              <TableHead className="text-secondary"></TableHead>
               <TableHead className="text-secondary">Nombre</TableHead>
               <TableHead className="text-secondary">Género</TableHead>
               <TableHead className="text-secondary">Especie</TableHead>
-              <TableHead className="text-secondary">Estado</TableHead>
               <TableHead className="text-secondary">Tipo</TableHead>
+              <TableHead className="text-secondary">Estado</TableHead>
+              <TableHead className="text-secondary"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -173,13 +188,29 @@ export default function CharacterPage() {
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{item.gender}</TableCell>
                 <TableCell>{item.species}</TableCell>
-                <TableCell>{item.status}</TableCell>
                 <TableCell>{item.type}</TableCell>
+                <TableCell>{item.status}</TableCell>
+
+                <TableCell>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <OptionsIcon className="hover:text-accent" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem>
+                        <EditIcon /> Editar datos básicos
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <EditIcon /> Editar estado
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </section>
-    </>
+    </div>
   );
 }
