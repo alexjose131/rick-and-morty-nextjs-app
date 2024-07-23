@@ -3,14 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 5rem;
-  }
   :root {
     --background: 210 10% 10%; /* Fondo general */
     --foreground: 0 0% 100%; /* Texto principal */
