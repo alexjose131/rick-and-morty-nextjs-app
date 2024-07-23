@@ -17,8 +17,8 @@
    3.4 [] Almacene la información consultada de las API en local para poder cambiar o agregar nuevos datos
    #### SPECS SECTIONS
    3.5 [] El proyecto debe contener las siguientes secciones:
-   3.5.1 [] Login
-   3.5.2 [] Sidebar
+   3.5.1 [X] Login
+   3.5.2 [X] Sidebar
    3.5.3 [] Crear personajes
    3.5.4 [] Consulta de personajes
    3.5.4.1 [] Muestre los personajes en una tabla, mostrando los datos más relevantes

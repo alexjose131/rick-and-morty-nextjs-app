@@ -35,17 +35,13 @@ export default function LoginPage() {
             Usuario
           </label>
           <Input type="text" id="user" {...register("user")} />
-          <p className="text-sm text-gray-300 text-accent">
-            {errors.user?.message}
-          </p>
+          <p className="text-sm text-accent">{errors.user?.message}</p>
 
           <label htmlFor="user" className="text-sm text-gray-300">
             Contraseña
           </label>
           <Input type="password" id="user" {...register("password")} />
-          <p className="text-sm text-gray-300 text-accent">
-            {errors.password?.message}
-          </p>
+          <p className="text-sm text-accent">{errors.password?.message}</p>
 
           <Button type="submit" className="mt-5">
             Iniciar sesión
