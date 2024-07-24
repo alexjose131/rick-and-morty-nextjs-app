@@ -102,8 +102,9 @@ const Options = () => {
   const { page, maxPage, prevPage, nextPage } = useEpisode();
   const router = useRouter();
   const handleCreationClick = () => {
-    router.push("/character/create");
+    router.push("/episode/create");
   };
+
   return (
     <>
       <div>

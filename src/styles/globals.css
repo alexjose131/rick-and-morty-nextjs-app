@@ -67,3 +67,7 @@
     @apply bg-background text-foreground; /* Aplica colores de fondo y texto globalmente */
   }
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert();
+}

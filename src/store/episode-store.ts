@@ -6,7 +6,7 @@ interface EpisodeState {
   episodes: EpisodeResult[];
   newEpisodes: EpisodeResult[];
   setEpisodes: (episodes: EpisodeResult[]) => void;
-  setNewEpisodes: (episodes: EpisodeResult) => void;
+  setNewEpisode: (episode: EpisodeResult) => void;
   updateEpisode: (episode: EpisodeResult) => void;
   removeEpisodes: () => void;
 }
@@ -17,7 +17,7 @@ const episodeStoreSlice: StateCreator<EpisodeState> = (set, get) => ({
   setEpisodes: (episodes: EpisodeResult[]) => {
     set({ episodes: episodes });
   },
-  setNewEpisodes: (episode: EpisodeResult) => {
+  setNewEpisode: (episode: EpisodeResult) => {
     const { newEpisodes } = get();
     set({ newEpisodes: [episode, ...newEpisodes] });
   },
