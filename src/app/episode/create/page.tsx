@@ -27,12 +27,17 @@ export default function CreateEpisodePage() {
   const { errors } = form.formState;
 
   const handleSubmit: SubmitHandler<EpisodeResult> = (data) => {
+    console.log(data);
     const newEpisode: EpisodeResult = {
       ...data,
       id: Date.now(),
       created: new Date(),
     };
     setNewEpisode(newEpisode);
+    goToEpisodePage();
+  };
+
+  const goToEpisodePage = () => {
     router.push("/episode");
   };
 
@@ -107,8 +112,9 @@ export default function CreateEpisodePage() {
               )}
             ></FormField>
 
-            <Button type="submit" className="">
-              Crear
+            <Button type="submit">Crear</Button>
+            <Button variant="secondary" onClick={() => router.back()}>
+              Volver
             </Button>
           </form>
         </Form>

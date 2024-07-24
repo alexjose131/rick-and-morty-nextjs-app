@@ -181,6 +181,9 @@ export default function CreateCharacterPage() {
             <Button type="submit" className="">
               Crear
             </Button>
+            <Button variant="secondary" onClick={() => router.back()}>
+              Volver
+            </Button>
           </form>
         </Form>
       </section>
