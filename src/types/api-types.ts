@@ -13,7 +13,7 @@ export interface Info {
 export interface CharacterResult {
   id: number;
   name: string;
-  status: Status;
+  status: CharacterStatus;
   species: string;
   type: string;
   gender: Gender;
@@ -26,10 +26,10 @@ export interface CharacterResult {
 }
 
 export enum Gender {
-  female = "female",
-  male = "male",
-  genderless = "genderless",
-  unknown = "unknown",
+  Female = "Female",
+  Male = "Male",
+  Genderless = "Genderless",
+  Unknown = "Unknown",
 }
 
 export interface Location {
@@ -37,8 +37,26 @@ export interface Location {
   url: string;
 }
 
-export enum Status {
-  alive = "alive",
-  dead = "dead",
-  unknown = "unknown",
+export enum CharacterStatus {
+  Alive = "Alive",
+  Dead = "Dead",
+  Unknown = "Unknown",
+}
+
+export interface ICharacterStatus {
+  status: CharacterStatus;
+}
+
+export interface ICharacterUpdate {
+  id: number;
+  name: string;
+  species: string;
+  type: string;
+  gender: Gender;
+  origin?: Location;
+  location?: Location;
+  image?: string;
+  episode: string[];
+  url?: string;
+  created: Date;
 }

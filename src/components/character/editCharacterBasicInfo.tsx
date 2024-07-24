@@ -1,36 +1,31 @@
-import { CharacterResult, Gender, Status } from "@/types/api-types";
+import {
+  CharacterResult,
+  Gender,
+  CharacterStatus,
+  ICharacterUpdate,
+} from "@/types/api-types";
 import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
-  DialogFooter,
-  DialogClose,
   DialogHeader,
   DialogDescription,
 } from "../ui/dialog";
-import { useCharacter } from "@/hooks/useCharacter";
 import { useCharacterStore } from "@/store/character-store";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../ui/form";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { newCharacterSchema } from "@/schemas/newCharacterSchema";
 import { Input } from "../ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
+import { useEffect } from "react";
+import { updateCharacterSchema } from "@/schemas/updateCharacterSchema";
 
 interface Props {
   character: CharacterResult;
@@ -43,15 +38,29 @@ export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
     updateCharacter: state.updateCharacter,
   }));
 
-  const form = useForm<CharacterResult>({
-    resolver: zodResolver(newCharacterSchema),
+  const form = useForm<ICharacterUpdate>({
+    resolver: zodResolver(updateCharacterSchema),
   });
 
+  const { setValue } = form;
   const { errors } = form.formState;
 
-  const handleUpdate = () => {
+  useEffect(() => {
+    const keys = Object.keys(character) as Array<keyof ICharacterUpdate>;
+    if (character) {
+      keys.forEach((key) => {
+        setValue(key, character[key]);
+      });
+    }
+  }, [character, setValue]);
+
+  const handleUpdate: SubmitHandler<ICharacterUpdate> = (data) => {
+    const { name, species, type, gender, ...dataChar } = character;
+    const updatedCharacter = { ...dataChar, ...data };
+    updateCharacter(updatedCharacter);
     onClose();
   };
+
   return (
     <Dialog open={isOpen}>
       <DialogContent>
@@ -77,36 +86,12 @@ export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
                         type="text"
                         placeholder="Nombre"
                         className="placeholder:text-gray-300"
-                        defaultValue={character.name}
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage>{errors.name?.message}</FormMessage>
-                  </FormItem>
-                )}
-              ></FormField>
-
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger className="text-gray-300">
-                          <SelectValue placeholder="Estado" />
-                        </SelectTrigger>
-                      </FormControl>
-
-                      <SelectContent>
-                        {Object.values(Status).map((status) => (
-                          <SelectItem key={status} value={status}>
-                            {status}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage>{errors.status?.message}</FormMessage>
+                    <FormMessage className="text-accent">
+                      {errors.name?.message}
+                    </FormMessage>
                   </FormItem>
                 )}
               ></FormField>
@@ -124,7 +109,9 @@ export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage>{errors.species?.message}</FormMessage>
+                    <FormMessage className="text-accent">
+                      {errors.species?.message}
+                    </FormMessage>
                   </FormItem>
                 )}
               ></FormField>
@@ -142,7 +129,9 @@ export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage>{errors.type?.message}</FormMessage>
+                    <FormMessage className="text-accent">
+                      {errors.type?.message}
+                    </FormMessage>
                   </FormItem>
                 )}
               ></FormField>
@@ -155,7 +144,9 @@ export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
                     <Select onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger className="text-gray-300">
-                          <SelectValue placeholder="Género" />
+                          {field.value || (
+                            <span className="text-gray-500">Género</span>
+                          )}
                         </SelectTrigger>
                       </FormControl>
 
@@ -167,13 +158,15 @@ export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage>{errors.gender?.message}</FormMessage>
+                    <FormMessage className="text-accent">
+                      {errors.gender?.message}
+                    </FormMessage>
                   </FormItem>
                 )}
-              ></FormField>
+              />
 
               <Button type="submit" className="mt-5">
-                Crear
+                Actualizar
               </Button>
             </form>
           </Form>

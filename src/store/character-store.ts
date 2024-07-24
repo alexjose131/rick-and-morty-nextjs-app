@@ -36,11 +36,13 @@ const characterStoreSlice: StateCreator<CharacterState> = (set, get) => ({
       (ch) => ch.id === character.id
     );
 
-    if (charactersStoreIndex) {
+    if (charactersStoreIndex !== -1) {
+      console.log("entra", charactersStoreIndex);
       structuredCharactersStore[charactersStoreIndex] = character;
+      console.log(structuredCharactersStore);
       set({ characters: structuredCharactersStore });
     }
-    if (newCharactersStoreIndex) {
+    if (newCharactersStoreIndex !== -1) {
       structuredNewCharactersStore[newCharactersStoreIndex] = character;
       set({ newCharacters: structuredNewCharactersStore });
     }

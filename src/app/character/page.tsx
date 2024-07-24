@@ -39,6 +39,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { EditCharacterBasicInfo } from "@/components/character/editCharacterBasicInfo";
+import { EditCharacterStatus } from "@/components/character/editCharacterStatus";
 
 export default function CharacterPage() {
   const router = useRouter();
@@ -55,6 +56,7 @@ export default function CharacterPage() {
   const form = useForm<CharacterFilters>();
 
   const [showEditBasicInfo, setShowEditBasicInfo] = useState(false);
+  const [showEditStatus, setShowEditStatus] = useState(false);
   const [character, setCharacter] = useState<CharacterResult>();
 
   const handleFilterSubmit = (data: CharacterFilters) => {
@@ -64,6 +66,11 @@ export default function CharacterPage() {
   const hadleEditBasic = (character: CharacterResult) => {
     setCharacter(character);
     setShowEditBasicInfo(true);
+  };
+
+  const hadleEditStatus = (character: CharacterResult) => {
+    setCharacter(character);
+    setShowEditStatus(true);
   };
 
   const handleCreationClick = () => {
@@ -227,7 +234,9 @@ export default function CharacterPage() {
                           >
                             <EditIcon /> Editar datos básicos
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => hadleEditStatus(item)}
+                          >
                             <EditIcon /> Editar estado
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -260,7 +269,7 @@ export default function CharacterPage() {
                         <DropdownMenuItem onClick={() => hadleEditBasic(item)}>
                           <EditIcon /> Editar datos básicos
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => hadleEditStatus(item)}>
                           <EditIcon /> Editar estado
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -280,6 +289,14 @@ export default function CharacterPage() {
           character={character}
           isOpen={showEditBasicInfo}
           onClose={() => setShowEditBasicInfo(false)}
+        />
+      )}
+
+      {showEditStatus && character && (
+        <EditCharacterStatus
+          character={character}
+          isOpen={showEditStatus}
+          onClose={() => setShowEditStatus(false)}
         />
       )}
     </div>
