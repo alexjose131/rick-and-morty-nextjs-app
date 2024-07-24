@@ -22,7 +22,7 @@ import { AvatarImage } from "@radix-ui/react-avatar";
 import { useForm } from "react-hook-form";
 import { useCharacter } from "@/hooks/useCharacter";
 import { CharacterFilters } from "@/types/app-types";
-import { Gender } from "@/types/api-types";
+import { CharacterResult, Gender } from "@/types/api-types";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import {
   DropdownMenu,
@@ -37,6 +37,9 @@ import {
   OptionsIcon,
 } from "@/components/common/Icons";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { EditCharacterBasicInfo } from "@/components/character/editCharacterBasicInfo";
+import { EditCharacterStatus } from "@/components/character/editCharacterStatus";
 
 export default function CharacterPage() {
   const router = useRouter();
@@ -52,8 +55,22 @@ export default function CharacterPage() {
   } = useCharacter();
   const form = useForm<CharacterFilters>();
 
+  const [showEditBasicInfo, setShowEditBasicInfo] = useState(false);
+  const [showEditStatus, setShowEditStatus] = useState(false);
+  const [character, setCharacter] = useState<CharacterResult>();
+
   const handleFilterSubmit = (data: CharacterFilters) => {
     updateFilters(data);
+  };
+
+  const hadleEditBasic = (character: CharacterResult) => {
+    setCharacter(character);
+    setShowEditBasicInfo(true);
+  };
+
+  const hadleEditStatus = (character: CharacterResult) => {
+    setCharacter(character);
+    setShowEditStatus(true);
   };
 
   const handleCreationClick = () => {
@@ -212,10 +229,14 @@ export default function CharacterPage() {
                           <OptionsIcon className="hover:text-accent" />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => hadleEditBasic(item)}
+                          >
                             <EditIcon /> Editar datos básicos
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => hadleEditStatus(item)}
+                          >
                             <EditIcon /> Editar estado
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -245,10 +266,10 @@ export default function CharacterPage() {
                         <OptionsIcon className="hover:text-accent" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => hadleEditBasic(item)}>
                           <EditIcon /> Editar datos básicos
                         </DropdownMenuItem>
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => hadleEditStatus(item)}>
                           <EditIcon /> Editar estado
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -261,6 +282,22 @@ export default function CharacterPage() {
         </section>
       ) : (
         <p>No se han encontrado personajes</p>
+      )}
+
+      {showEditBasicInfo && character && (
+        <EditCharacterBasicInfo
+          character={character}
+          isOpen={showEditBasicInfo}
+          onClose={() => setShowEditBasicInfo(false)}
+        />
+      )}
+
+      {showEditStatus && character && (
+        <EditCharacterStatus
+          character={character}
+          isOpen={showEditStatus}
+          onClose={() => setShowEditStatus(false)}
+        />
       )}
     </div>
   );

@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { newCharacterSchema } from "@/schemas/newCharacterSchema";
 import { useCharacterStore } from "@/store/character-store";
-import { CharacterResult, Gender, Status } from "@/types/api-types";
+import { CharacterResult, Gender, CharacterStatus } from "@/types/api-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -60,7 +60,9 @@ export default function CreateCharacterPage() {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage>{errors.name?.message}</FormMessage>
+                  <FormMessage className="text-accent">
+                    {errors.name?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             ></FormField>
@@ -78,14 +80,16 @@ export default function CreateCharacterPage() {
                     </FormControl>
 
                     <SelectContent>
-                      {Object.values(Status).map((status) => (
+                      {Object.values(CharacterStatus).map((status) => (
                         <SelectItem key={status} value={status}>
                           {status}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormMessage>{errors.status?.message}</FormMessage>
+                  <FormMessage className="text-accent">
+                    {errors.status?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             ></FormField>
@@ -103,7 +107,9 @@ export default function CreateCharacterPage() {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage>{errors.species?.message}</FormMessage>
+                  <FormMessage className="text-accent">
+                    {errors.species?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             ></FormField>
@@ -121,7 +127,9 @@ export default function CreateCharacterPage() {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage>{errors.type?.message}</FormMessage>
+                  <FormMessage className="text-accent">
+                    {errors.type?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             ></FormField>
@@ -146,7 +154,9 @@ export default function CreateCharacterPage() {
                       ))}
                     </SelectContent>
                   </Select>
-                  <FormMessage>{errors.gender?.message}</FormMessage>
+                  <FormMessage className="text-accent">
+                    {errors.gender?.message}
+                  </FormMessage>
                 </FormItem>
               )}
             ></FormField>
