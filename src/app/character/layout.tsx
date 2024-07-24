@@ -11,7 +11,7 @@ export default function RootLayout({
         <div>
           <Sidebar />
         </div>
-        <div className="py-10  px-20 h-svh">{children}</div>
+        <div className="py-10 px-5  md:px-20 h-svh">{children}</div>
       </body>
     </html>
   );

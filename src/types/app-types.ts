@@ -1,4 +1,4 @@
-import { Status, Gender } from "./api-types";
+import { Gender } from "./api-types";
 
 export type CredentialsInputs = {
   user: string;
@@ -10,4 +10,9 @@ export type CharacterFilters = {
   type?: string;
   gender?: Gender;
   name?: string;
+};
+
+export type EpisodeFilters = {
+  name?: string;
+  episode?: string;
 };

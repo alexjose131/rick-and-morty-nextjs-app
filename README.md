@@ -26,8 +26,8 @@
    3.5.4.3 [X] Debe permitir mutar los datos de los personajes a través de un menú de opciones en cada fila de la tabla. Entre las opciones debe permitir Cambiar datos básicos o cambiar el status del personaje
    3.5.5 [] Crear episodios
    3.5.6 [] Consulta de Episodios
-   3.5.6.1 [] Muestre los episodios en una tabla, mostrando los datos más relevantes
-   3.5.6.2 [] La sección de permitir filtrado de los episodios por nombre y episodio
+   3.5.6.1 [X] Muestre los episodios en una tabla, mostrando los datos más relevantes
+   3.5.6.2 [X] La sección de permitir filtrado de los episodios por nombre y episodio
    3.5.6.3 [] Debe permitir mutar los datos del a través de un menú de opciones en cada fila de la tabla. Entre las opciones debe permitir Cambiar datos básicos o cambiar el status del episodio
 
 ### CONSIDERATIONS
