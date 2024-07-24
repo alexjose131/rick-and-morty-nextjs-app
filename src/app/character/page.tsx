@@ -81,7 +81,9 @@ export default function CharacterPage() {
     <div className="flex flex-col items-center">
       <h2 className="text-3xl mb-10">Personajes</h2>
       <section className="mb-5 w-full">
-        <p className="text-md text-gray-300 mb-1">Filtrar personajes:</p>
+        <label className="text-md text-gray-300 mb-1">
+          Filtrar personajes:
+        </label>
         <Form {...form}>
           <form
             action=""
