@@ -2,7 +2,7 @@
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { EpisodeResult } from "@/types/api-types";
-import { CharacterFilters, EpisodeFilters } from "@/types/app-types";
+import { EpisodeFilters } from "@/types/app-types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -17,8 +17,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Avatar } from "@/components/ui/avatar";
-import { AvatarImage } from "@radix-ui/react-avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,9 +30,11 @@ import {
   OptionsIcon,
 } from "@/components/common/Icons";
 
-const FilterData = () => {
-  const { updateFilters } = useEpisode();
+interface FilterDataProps {
+  updateFilters: (data: EpisodeFilters) => void;
+}
 
+const FilterData = ({ updateFilters }: FilterDataProps) => {
   const handleFilterSubmit = (data: EpisodeFilters) => {
     updateFilters(data);
   };
@@ -98,8 +98,14 @@ const FilterData = () => {
   );
 };
 
-const Options = () => {
-  const { page, maxPage, prevPage, nextPage } = useEpisode();
+interface OptionsProps {
+  page: number;
+  maxPage: number;
+  prevPage: () => void;
+  nextPage: () => void;
+}
+const Options = ({ page, maxPage, prevPage, nextPage }: OptionsProps) => {
+  const {} = useEpisode();
   const router = useRouter();
   const handleCreationClick = () => {
     router.push("/episode/create");
@@ -132,41 +138,31 @@ const Options = () => {
   );
 };
 
-const TableData = () => {
-  const {
-    error,
-    episodes,
-    filteredNewEpisodes,
-    page,
-    maxPage,
-    //prevPage,
-    //nextPage,
-    //updateFilters,
-  } = useEpisode();
+interface TableDataProps {
+  filteredNewEpisodes: EpisodeResult[];
+  episodes: EpisodeResult[];
+  page: number;
+}
 
+const TableData = ({ filteredNewEpisodes, episodes, page }: TableDataProps) => {
   const [showEditBasicInfo, setShowEditBasicInfo] = useState(false);
   const [showEditStatus, setShowEditStatus] = useState(false);
 
-  const hadleEditBasic = (episode: EpisodeResult) => {
+  const handleEditBasic = (episode: EpisodeResult) => {
     //setCharacter(character);
     setShowEditBasicInfo(true);
   };
 
-  const hadleEditStatus = (episode: EpisodeResult) => {
+  const handleEditStatus = (episode: EpisodeResult) => {
     //setCharacter(character);
     setShowEditStatus(true);
   };
-
-  useEffect(() => {
-    console.log(episodes);
-  }, [episodes]);
-
   return (
     <>
       {[...filteredNewEpisodes, ...episodes].length > 0 ? (
         <Table>
           <TableHeader>
-            <TableRow className="contents">
+            <TableRow>
               <TableHead className="text-secondary">Nombre</TableHead>
               <TableHead className="text-secondary">Episodio</TableHead>
               <TableHead className="text-secondary">Lanzamiento</TableHead>
@@ -176,7 +172,7 @@ const TableData = () => {
           <TableBody>
             {page === 1 &&
               filteredNewEpisodes.map((item) => (
-                <TableRow key={item.id} className="contents">
+                <TableRow key={item.id}>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.episode}</TableCell>
                   <TableCell>{item.air_date}</TableCell>
@@ -186,10 +182,12 @@ const TableData = () => {
                         <OptionsIcon className="hover:text-accent" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => hadleEditBasic(item)}>
+                        <DropdownMenuItem onClick={() => handleEditBasic(item)}>
                           <EditIcon /> Editar datos básicos
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => hadleEditStatus(item)}>
+                        <DropdownMenuItem
+                          onClick={() => handleEditStatus(item)}
+                        >
                           <EditIcon /> Editar estado
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -210,10 +208,12 @@ const TableData = () => {
                         <OptionsIcon className="hover:text-accent" />
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => hadleEditBasic(item)}>
+                        <DropdownMenuItem onClick={() => handleEditBasic(item)}>
                           <EditIcon /> Editar datos básicos
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => hadleEditStatus(item)}>
+                        <DropdownMenuItem
+                          onClick={() => handleEditStatus(item)}
+                        >
                           <EditIcon /> Editar estado
                         </DropdownMenuItem>
                       </DropdownMenuContent>
@@ -234,17 +234,36 @@ const TableData = () => {
 export default function EpisodePage() {
   const [episode, setEpisode] = useState<EpisodeResult>();
 
+  const {
+    page,
+    filteredNewEpisodes,
+    episodes,
+    maxPage,
+    updateFilters,
+    prevPage,
+    nextPage,
+  } = useEpisode();
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl mb-10">Episodios</h2>
       <section className="mb-5 w-full">
-        <FilterData />
+        <FilterData updateFilters={updateFilters} />
       </section>
       <section className="flex flex-col gap-2 md:gap-0 md:flex-row items-center justify-center md:justify-between w-full my-2">
-        <Options />
+        <Options
+          page={page}
+          maxPage={maxPage}
+          prevPage={prevPage}
+          nextPage={nextPage}
+        />
       </section>
       <section className="w-full">
-        <TableData />
+        <TableData
+          page={page}
+          filteredNewEpisodes={filteredNewEpisodes}
+          episodes={episodes}
+        />
       </section>
     </div>
   );

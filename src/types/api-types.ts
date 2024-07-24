@@ -70,7 +70,7 @@ export interface EpisodeResult {
   id: number;
   name: string;
   air_date: string;
-  episode?: string;
+  episode: string;
   characters?: string[];
   url?: string;
   created: Date;
