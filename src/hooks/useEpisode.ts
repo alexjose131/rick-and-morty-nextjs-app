@@ -1,7 +1,7 @@
 import { fetchEpisodes } from "@/services/episodes.service";
 import { useEpisodeStore } from "@/store/episode-store";
 import { APIEpisodeResults, EpisodeResult } from "@/types/api-types";
-import { CharacterFilters } from "@/types/app-types";
+import { CharacterFilters, EpisodeFilters } from "@/types/app-types";
 import { useEffect, useState } from "react";
 
 export function useEpisode() {
@@ -24,7 +24,7 @@ export function useEpisode() {
       console.log(response);
       if (response.error && response.error === "There is nothing here") {
         setEpisodes([]);
-        setError("Failed to fetch characters");
+        setError("Failed to fetch episodes");
         return;
       }
 
@@ -33,7 +33,7 @@ export function useEpisode() {
       setMaxPage(data.info.pages);
     } catch (error) {
       console.log(error);
-      setError("Error fetching characters");
+      setError("Error fetching episodes");
     }
   };
 
@@ -81,9 +81,9 @@ export function useEpisode() {
       setFilteredNewCharacters(filteredCharacters);
     },
     [newCharacters, setFilteredNewCharacters]
-  );
+  );*/
 
-  const updateFilters = (filters: CharacterFilters) => {
+  const updateFilters = (filters: EpisodeFilters) => {
     setFilters(filters);
     setPage(1);
   };
@@ -95,7 +95,7 @@ export function useEpisode() {
   const prevPage = () => {
     if (page === 1) return;
     setPage((prevPage) => prevPage - 1);
-  };*/
+  };
 
   useEffect(() => {
     getEpisodes();
@@ -108,8 +108,8 @@ export function useEpisode() {
     filteredNewEpisodes,
     page,
     maxPage,
-    //nextPage,
-    //prevPage,
-    //updateFilters,
+    nextPage,
+    prevPage,
+    updateFilters,
   };
 }

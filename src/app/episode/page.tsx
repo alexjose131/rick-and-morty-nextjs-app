@@ -33,8 +33,10 @@ import {
 } from "@/components/common/Icons";
 
 const FilterData = () => {
+  const { updateFilters } = useEpisode();
+
   const handleFilterSubmit = (data: EpisodeFilters) => {
-    //updateFilters(data);
+    updateFilters(data);
   };
 
   const form = useForm<EpisodeFilters>();
@@ -97,6 +99,7 @@ const FilterData = () => {
 };
 
 const Options = () => {
+  const { page, maxPage, prevPage, nextPage } = useEpisode();
   const router = useRouter();
   const handleCreationClick = () => {
     router.push("/character/create");
@@ -111,15 +114,15 @@ const Options = () => {
       <div className="flex gap-2">
         <Button
           variant="outline"
-          /*onClick={() => prevPage()}
-            disabled={page === 1}*/
+          onClick={() => prevPage()}
+          disabled={page === 1}
         >
           <ChevronLeftIcon />
         </Button>
         <Button
           variant="outline"
-          /*onClick={() => nextPage()}
-            disabled={page === maxPage}*/
+          onClick={() => nextPage()}
+          disabled={page === maxPage}
         >
           <ChevronRightIcon />
         </Button>
