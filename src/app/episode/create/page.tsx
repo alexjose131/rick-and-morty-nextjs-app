@@ -16,6 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { formatDate } from "@/lib/utils";
 
 export default function CreateEpisodePage() {
   const { setNewEpisode } = useEpisodeStore();
@@ -27,9 +28,10 @@ export default function CreateEpisodePage() {
   const { errors } = form.formState;
 
   const handleSubmit: SubmitHandler<EpisodeResult> = (data) => {
-    console.log(data);
+    const transformedDate = formatDate(data.air_date);
     const newEpisode: EpisodeResult = {
       ...data,
+      air_date: transformedDate,
       id: Date.now(),
       created: new Date(),
     };
@@ -59,11 +61,7 @@ export default function CreateEpisodePage() {
                     Nombre
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      type="text"
-                      className="placeholder-transparent"
-                      {...field}
-                    />
+                    <Input type="text" {...field} />
                   </FormControl>
                   <FormMessage className="text-accent">
                     {errors.name?.message}
@@ -99,11 +97,7 @@ export default function CreateEpisodePage() {
                     Episodio
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      type="type"
-                      className="placeholder:text-gray-300"
-                      {...field}
-                    />
+                    <Input type="type" {...field} />
                   </FormControl>
                   <FormMessage className="text-accent">
                     {errors.episode?.message}
@@ -113,7 +107,11 @@ export default function CreateEpisodePage() {
             ></FormField>
 
             <Button type="submit">Crear</Button>
-            <Button variant="secondary" onClick={() => router.back()}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => router.back()}
+            >
               Volver
             </Button>
           </form>

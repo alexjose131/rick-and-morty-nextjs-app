@@ -7,9 +7,8 @@ export const newEpisodeSchema = z.object({
     .string()
     .min(1, { message: "El nombre no puede estar vacío." })
     .max(30, { message: "El nombre no puede ser tan largo." }),
-  air_date: z.string(),
+  air_date: z.string().date(),
   episode: z.string().regex(/^S\d{2}E\d{2}$/, {
     message: "El episodio no tiene un formato adecuado",
   }),
-  created: z.date(),
 });

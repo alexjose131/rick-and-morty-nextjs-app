@@ -27,9 +27,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 export default function CreateCharacterPage() {
   const { setNewCharacter } = useCharacterStore();
   const router = useRouter();
-  const form = useForm<CharacterResult>({
-    resolver: zodResolver(newCharacterSchema),
-  });
+  const form = useForm<CharacterResult>({});
 
   const { errors } = form.formState;
 
@@ -181,7 +179,11 @@ export default function CreateCharacterPage() {
             <Button type="submit" className="">
               Crear
             </Button>
-            <Button variant="secondary" onClick={() => router.back()}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => router.back()}
+            >
               Volver
             </Button>
           </form>
