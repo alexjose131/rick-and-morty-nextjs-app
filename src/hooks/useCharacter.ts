@@ -20,7 +20,7 @@ export function useCharacter() {
   } = useCharacterStore();
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState("");
-  const [maxPage, setMaxPage] = useState<number>();
+  const [maxPage, setMaxPage] = useState<number>(-1);
   const [filters, setFilters] = useState<CharacterFilters>({});
   const [filteredNewCharacters, setFilteredNewCharacters] =
     useState<CharacterResult[]>(newCharacters);

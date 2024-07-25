@@ -1,6 +1,3 @@
-"use client";
-
-import { EpisodeResult } from "@/types/api-types";
 import {
   Table,
   TableBody,
@@ -9,6 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Avatar } from "@/components/ui/avatar";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import { CharacterResult } from "@/types/api-types";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,46 +16,65 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { OptionsIcon } from "@/components/common/Icons";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TableDataProps {
-  filteredNewEpisodes: EpisodeResult[];
-  episodes: EpisodeResult[];
+  filteredNewCharacters: CharacterResult[];
+  characters: CharacterResult[];
   page: number;
   setShowEditBasicInfo: (open: boolean) => void;
-  setEpisode: (episode: EpisodeResult) => void;
+  setShowEditStatus: (open: boolean) => void;
+  setCharacter: (character: CharacterResult) => void;
 }
 
 interface TableRowDisplay {
-  data: EpisodeResult[];
+  data: CharacterResult[];
   setShowEditBasicInfo: (open: boolean) => void;
-  setEpisode: (episode: EpisodeResult) => void;
+  setShowEditStatus: (open: boolean) => void;
+  setCharacter: (character: CharacterResult) => void;
 }
 
 const TableRowDisplay = ({
   data,
   setShowEditBasicInfo,
-  setEpisode,
+  setShowEditStatus,
+  setCharacter,
 }: TableRowDisplay) => {
-  const handleEditBasic = (episode: EpisodeResult) => {
-    setEpisode(episode);
+  const hadleEditBasic = (character: CharacterResult) => {
+    setCharacter(character);
     setShowEditBasicInfo(true);
+  };
+
+  const hadleEditStatus = (character: CharacterResult) => {
+    setCharacter(character);
+    setShowEditStatus(true);
   };
   return (
     <>
       {data.map((item) => (
         <TableRow key={item.id}>
+          <TableCell>
+            <Avatar>
+              <AvatarImage src={item.image ? item.image : "/logo.svg"} />
+            </Avatar>
+          </TableCell>
           <TableCell>{item.name}</TableCell>
-          <TableCell>{item.episode}</TableCell>
-          <TableCell>{item.air_date}</TableCell>
+          <TableCell>{item.gender}</TableCell>
+          <TableCell>{item.species}</TableCell>
+          <TableCell>{item.type}</TableCell>
+          <TableCell>{item.status}</TableCell>
+
           <TableCell>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <OptionsIcon className="hover:text-accent" />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleEditBasic(item)}>
+                <DropdownMenuItem onClick={() => hadleEditBasic(item)}>
                   Editar datos básicos
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => hadleEditStatus(item)}>
+                  Editar estado
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -66,56 +85,63 @@ const TableRowDisplay = ({
   );
 };
 
-const TableData = ({
-  filteredNewEpisodes,
-  episodes,
+export const TableData = ({
+  filteredNewCharacters,
+  characters,
   page,
   setShowEditBasicInfo,
-  setEpisode,
+  setShowEditStatus,
+  setCharacter,
 }: TableDataProps) => {
   return (
     <>
-      <Suspense fallback={<h2>Loading...</h2>}>
-        {[...filteredNewEpisodes, ...episodes].length > 0 ? (
+      {[...filteredNewCharacters, ...characters].length > 0 ? (
+        <section className="w-full">
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="text-secondary"></TableHead>
                 <TableHead className="text-secondary">Nombre</TableHead>
-                <TableHead className="text-secondary">Episodio</TableHead>
-                <TableHead className="text-secondary">Lanzamiento</TableHead>
+                <TableHead className="text-secondary">Género</TableHead>
+                <TableHead className="text-secondary">Especie</TableHead>
+                <TableHead className="text-secondary">Tipo</TableHead>
+                <TableHead className="text-secondary">Estado</TableHead>
                 <TableHead className="text-secondary"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {page === 1 && (
                 <TableRowDisplay
-                  data={filteredNewEpisodes}
+                  data={filteredNewCharacters}
+                  setCharacter={setCharacter}
                   setShowEditBasicInfo={setShowEditBasicInfo}
-                  setEpisode={setEpisode}
+                  setShowEditStatus={setShowEditStatus}
                 />
               )}
 
               <TableRowDisplay
-                data={episodes}
+                data={characters}
+                setCharacter={setCharacter}
                 setShowEditBasicInfo={setShowEditBasicInfo}
-                setEpisode={setEpisode}
+                setShowEditStatus={setShowEditStatus}
               />
             </TableBody>
           </Table>
-        ) : (
-          <label>No se han encontrado personajes</label>
-        )}
-      </Suspense>
+        </section>
+      ) : (
+        <label>No se han encontrado personajes</label>
+      )}
     </>
   );
 };
 
 export default function LazyTableData({
-  filteredNewEpisodes,
-  episodes,
+  filteredNewCharacters,
+  characters,
   page,
   setShowEditBasicInfo,
-  setEpisode,
+  setShowEditStatus,
+  setCharacter,
 }: TableDataProps) {
   const [show, setShow] = useState(false);
 
@@ -144,10 +170,11 @@ export default function LazyTableData({
     <div id="LazyTableData">
       {show ? (
         <TableData
-          filteredNewEpisodes={filteredNewEpisodes}
-          episodes={episodes}
+          filteredNewCharacters={filteredNewCharacters}
+          characters={characters}
           page={page}
-          setEpisode={setEpisode}
+          setCharacter={setCharacter}
+          setShowEditStatus={setShowEditStatus}
           setShowEditBasicInfo={setShowEditBasicInfo}
         />
       ) : null}
