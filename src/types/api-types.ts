@@ -75,3 +75,9 @@ export interface EpisodeResult {
   url?: string;
   created: Date;
 }
+
+export interface IEpisodeUpdate {
+  name: string;
+  air_date: string;
+  episode: string;
+}
