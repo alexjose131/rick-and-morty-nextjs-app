@@ -1,9 +1,9 @@
 ## HOW TO DEPLOY
 
 1. Clone the repository and open it in your Code Editor.
-2. Open and Terminal and nur "npm install"
-3. Make sure that you have te environment variables in your .env file (in the root folder of the application)
-4. Init the App with the following command "npm run dev"
+2. Open and Terminal and run "npm install"
+3. Make sure that you have te environment variables in your .env file (in the app root folder)
+4. Init the App using the following command "npm run dev"
 
 ### Environment Variables
 
@@ -53,4 +53,4 @@ NEXT_PUBLIC_API_URL='https://rickandmortyapi.com/api'
 
 ### DEPLOYMENT
 
-4. [] Despliegue el proyecto en un servidor como Vercel - url:
+4. [X] Despliegue el proyecto en un servidor como Vercel - url:
