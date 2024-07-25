@@ -20,13 +20,7 @@ import {
 } from "../ui/form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import { useEffect } from "react";
 import { editCharacterStatusSchema } from "@/schemas/editCharacterStatusSchemat";
 import { useCharacter } from "@/hooks/useCharacter";
