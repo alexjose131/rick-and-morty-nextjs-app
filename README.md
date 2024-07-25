@@ -16,7 +16,7 @@
    3.3 [X] Utilice Fetch para hacer las peticiones y manejo de errores.
    3.4 [X] Almacene la información consultada de las API en local para poder cambiar o agregar nuevos datos
    #### SPECS SECTIONS
-   3.5 [] El proyecto debe contener las siguientes secciones:
+   3.5 [X] El proyecto debe contener las siguientes secciones:
    3.5.1 [X] Login
    3.5.2 [X] Sidebar
    3.5.3 [X] Crear personajes
@@ -25,10 +25,10 @@
    3.5.4.2 [X] La sección de permitir filtrado de los personajes por especie, tipo, género y nombre
    3.5.4.3 [X] Debe permitir mutar los datos de los personajes a través de un menú de opciones en cada fila de la tabla. Entre las opciones debe permitir Cambiar datos básicos o cambiar el status del personaje
    3.5.5 [X] Crear episodios
-   3.5.6 [] Consulta de Episodios
+   3.5.6 [X] Consulta de Episodios
    3.5.6.1 [X] Muestre los episodios en una tabla, mostrando los datos más relevantes
    3.5.6.2 [X] La sección de permitir filtrado de los episodios por nombre y episodio
-   3.5.6.3 [] Debe permitir mutar los datos del a través de un menú de opciones en cada fila de la tabla. Entre las opciones debe permitir Cambiar datos básicos o cambiar el status del episodio
+   3.5.6.3 [X] Debe permitir mutar los datos del a través de un menú de opciones en cada fila de la tabla. Entre las opciones debe permitir Cambiar datos básicos o cambiar el status del episodio
 
 ### CONSIDERATIONS
 

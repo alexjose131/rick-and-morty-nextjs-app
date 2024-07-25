@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogDescription,
 } from "../ui/dialog";
-import { useCharacterStore } from "@/store/character-store";
 import {
   Form,
   FormControl,
@@ -21,15 +20,10 @@ import {
 } from "../ui/form";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import { useEffect } from "react";
 import { editCharacterStatusSchema } from "@/schemas/editCharacterStatusSchemat";
+import { useCharacter } from "@/hooks/useCharacter";
 
 interface Props {
   character: CharacterResult;
@@ -38,9 +32,7 @@ interface Props {
 }
 
 export function EditCharacterStatus({ character, isOpen, onClose }: Props) {
-  const { updateCharacter } = useCharacterStore((state) => ({
-    updateCharacter: state.updateCharacter,
-  }));
+  const { updateCharacterStatus } = useCharacter();
 
   const form = useForm<ICharacterStatus>({
     resolver: zodResolver(editCharacterStatusSchema),
@@ -59,9 +51,7 @@ export function EditCharacterStatus({ character, isOpen, onClose }: Props) {
   }, [character, setValue]);
 
   const handleUpdate: SubmitHandler<ICharacterStatus> = (data) => {
-    const { status, ...dataChar } = character;
-    const updatedCharacter = { ...dataChar, ...data };
-    updateCharacter(updatedCharacter);
+    updateCharacterStatus(character, data);
     onClose();
   };
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { newEpisodeSchema } from "@/schemas/newEpisodeSchema";
-import { useEpisodeStore } from "@/store/episode-store";
 import { EpisodeResult } from "@/types/api-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -16,10 +15,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { formatDate } from "@/lib/utils";
+import { useEpisode } from "@/hooks/useEpisode";
 
 export default function CreateEpisodePage() {
-  const { setNewEpisode } = useEpisodeStore();
+  const { createEpisode } = useEpisode();
   const router = useRouter();
   const form = useForm<EpisodeResult>({
     resolver: zodResolver(newEpisodeSchema),
@@ -28,14 +27,7 @@ export default function CreateEpisodePage() {
   const { errors } = form.formState;
 
   const handleSubmit: SubmitHandler<EpisodeResult> = (data) => {
-    const transformedDate = formatDate(data.air_date);
-    const newEpisode: EpisodeResult = {
-      ...data,
-      air_date: transformedDate,
-      id: Date.now(),
-      created: new Date(),
-    };
-    setNewEpisode(newEpisode);
+    createEpisode(data);
     goToEpisodePage();
   };
 

@@ -37,9 +37,7 @@ const characterStoreSlice: StateCreator<CharacterState> = (set, get) => ({
     );
 
     if (charactersStoreIndex !== -1) {
-      console.log("entra", charactersStoreIndex);
       structuredCharactersStore[charactersStoreIndex] = character;
-      console.log(structuredCharactersStore);
       set({ characters: structuredCharactersStore });
     }
     if (newCharactersStoreIndex !== -1) {

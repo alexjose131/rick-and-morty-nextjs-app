@@ -17,15 +17,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCharacter } from "@/hooks/useCharacter";
 import { newCharacterSchema } from "@/schemas/newCharacterSchema";
-import { useCharacterStore } from "@/store/character-store";
 import { CharacterResult, Gender, CharacterStatus } from "@/types/api-types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function CreateCharacterPage() {
-  const { setNewCharacter } = useCharacterStore();
+  const { createCharacter } = useCharacter();
   const router = useRouter();
   const form = useForm<CharacterResult>({
     resolver: zodResolver(newCharacterSchema),
@@ -34,12 +34,7 @@ export default function CreateCharacterPage() {
   const { errors } = form.formState;
 
   const handleSubmit: SubmitHandler<CharacterResult> = (data) => {
-    const newCharacter: CharacterResult = {
-      ...data,
-      id: Date.now(),
-      created: new Date(),
-    };
-    setNewCharacter(newCharacter);
+    createCharacter(data);
     router.push("/character");
   };
 

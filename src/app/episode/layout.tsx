@@ -1,4 +1,5 @@
 import { Sidebar } from "@/components/common/sidebar";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function RootLayout({
   children,
@@ -10,6 +11,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <div>
           <Sidebar />
+          <Toaster />
         </div>
         <div className="py-10 px-5  md:px-20 h-svh">{children}</div>
       </body>

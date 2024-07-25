@@ -19,9 +19,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { useEffect } from "react";
-import { useEpisodeStore } from "@/store/episode-store";
 import { updateEpisodeSchema } from "@/schemas/updateEpisodeSchema";
-import { formatDate } from "@/lib/utils";
+import { useEpisode } from "@/hooks/useEpisode";
 
 interface Props {
   episode: EpisodeResult;
@@ -30,9 +29,7 @@ interface Props {
 }
 
 export function EditEpisodeBasicInfo({ episode, isOpen, onClose }: Props) {
-  const { updateEpisode } = useEpisodeStore((state) => ({
-    updateEpisode: state.updateEpisode,
-  }));
+  const { updateEpisodeBasicInfo } = useEpisode();
 
   const form = useForm<IEpisodeUpdate>({
     resolver: zodResolver(updateEpisodeSchema),
@@ -55,10 +52,7 @@ export function EditEpisodeBasicInfo({ episode, isOpen, onClose }: Props) {
   }, [episode, setValue]);
 
   const handleUpdate: SubmitHandler<IEpisodeUpdate> = (data) => {
-    const { name, air_date, episode: episodeString, ...dataEp } = episode;
-    data.air_date = formatDate(data.air_date);
-    const updatedCharacter = { ...dataEp, ...data };
-    updateEpisode(updatedCharacter);
+    updateEpisodeBasicInfo(episode, data);
     onClose();
   };
 
@@ -131,7 +125,7 @@ export function EditEpisodeBasicInfo({ episode, isOpen, onClose }: Props) {
                 )}
               ></FormField>
 
-              <Button type="submit">Crear</Button>
+              <Button type="submit">Editar</Button>
             </form>
           </Form>
           <Button

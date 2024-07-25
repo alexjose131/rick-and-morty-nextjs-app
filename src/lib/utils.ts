@@ -7,9 +7,17 @@ export function cn(...inputs: ClassValue[]) {
 
 export const formatDate = (dateString: string) => {
   const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
+
+  const localDate = new Date(
+    date.getTime() + date.getTimezoneOffset() * 60 * 1000
+  );
+
+  const localeDate = localDate.toLocaleDateString("en-US", {
+    timeZone: "UTC",
     month: "long",
     day: "numeric",
     year: "numeric",
   });
+
+  return localeDate;
 };

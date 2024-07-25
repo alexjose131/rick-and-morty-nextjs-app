@@ -1,15 +1,25 @@
+import { formatDate } from "@/lib/utils";
 import { fetchEpisodes } from "@/services/episodes.service";
 import { useEpisodeStore } from "@/store/episode-store";
-import { APIEpisodeResults, EpisodeResult } from "@/types/api-types";
+import {
+  APIEpisodeResults,
+  EpisodeResult,
+  IEpisodeUpdate,
+} from "@/types/api-types";
 import { EpisodeFilters } from "@/types/app-types";
 import { useCallback, useEffect, useState } from "react";
+import { ToastTitle, useToastImp } from "./useToast";
 
 export function useEpisode() {
-  const { episodes, newEpisodes, setEpisodes } = useEpisodeStore((state) => ({
-    episodes: state.episodes,
-    newEpisodes: state.newEpisodes,
-    setEpisodes: state.setEpisodes,
-  }));
+  const { showToast } = useToastImp();
+  const { episodes, newEpisodes, setEpisodes, setNewEpisode, updateEpisode } =
+    useEpisodeStore((state) => ({
+      episodes: state.episodes,
+      newEpisodes: state.newEpisodes,
+      setEpisodes: state.setEpisodes,
+      setNewEpisode: state.setNewEpisode,
+      updateEpisode: state.updateEpisode,
+    }));
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState("");
   const [maxPage, setMaxPage] = useState<number>(-1);
@@ -21,10 +31,9 @@ export function useEpisode() {
     try {
       setError("");
       const response = await fetchEpisodes(filters, page);
-      console.log(response);
+
       if (response.error && response.error === "There is nothing here") {
         setEpisodes([]);
-        setError("Failed to fetch episodes");
         return;
       }
 
@@ -64,6 +73,38 @@ export function useEpisode() {
     [newEpisodes, setFilteredNewEpisodes]
   );
 
+  const createEpisode = (data: EpisodeResult) => {
+    const transformedDate = formatDate(data.air_date);
+    const newEpisode: EpisodeResult = {
+      ...data,
+      air_date: transformedDate,
+      id: Date.now(),
+      created: new Date(),
+    };
+    setNewEpisode(newEpisode);
+    showToast({
+      title: ToastTitle.Exito,
+      description: "Episodio creado satisfactoriamente.",
+    });
+  };
+
+  const updateEpisodeBasicInfo = (
+    episode: EpisodeResult,
+    data: IEpisodeUpdate
+  ) => {
+    const { name, air_date, episode: episodeString, ...dataEp } = episode;
+    console.log(data.air_date);
+    data.air_date = formatDate(data.air_date);
+    console.log(data.air_date);
+    const updatedEpisode = { ...dataEp, ...data };
+    console.log(updatedEpisode);
+    updateEpisode(updatedEpisode);
+    showToast({
+      title: ToastTitle.Exito,
+      description: "Episodio actualizado satisfactoriamente.",
+    });
+  };
+
   const updateFilters = (filters: EpisodeFilters) => {
     setFilters(filters);
     setPage(1);
@@ -81,7 +122,12 @@ export function useEpisode() {
   useEffect(() => {
     getEpisodes();
     filterNewEpisodes(filters);
-  }, [page, filters, newEpisodes]);
+  }, [page, newEpisodes, filters]);
+
+  useEffect(() => {
+    if (!error) return;
+    showToast({ title: ToastTitle.Error, description: error });
+  }, [error]);
 
   return {
     error,
@@ -92,5 +138,7 @@ export function useEpisode() {
     nextPage,
     prevPage,
     updateFilters,
+    createEpisode,
+    updateEpisodeBasicInfo,
   };
 }
