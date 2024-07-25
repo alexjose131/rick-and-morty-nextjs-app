@@ -26,6 +26,7 @@ import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 import { useEffect } from "react";
 import { updateCharacterSchema } from "@/schemas/updateCharacterSchema";
+import { useCharacter } from "@/hooks/useCharacter";
 
 interface Props {
   character: CharacterResult;
@@ -34,9 +35,7 @@ interface Props {
 }
 
 export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
-  const { updateCharacter } = useCharacterStore((state) => ({
-    updateCharacter: state.updateCharacter,
-  }));
+  const { updateCharacterBasicInfo } = useCharacter();
 
   const form = useForm<ICharacterUpdate>({
     resolver: zodResolver(updateCharacterSchema),
@@ -55,9 +54,7 @@ export function EditCharacterBasicInfo({ character, isOpen, onClose }: Props) {
   }, [character, setValue]);
 
   const handleUpdate: SubmitHandler<ICharacterUpdate> = (data) => {
-    const { name, species, type, gender, ...dataChar } = character;
-    const updatedCharacter = { ...dataChar, ...data };
-    updateCharacter(updatedCharacter);
+    updateCharacterBasicInfo(character, data);
     onClose();
   };
 

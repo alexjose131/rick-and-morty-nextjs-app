@@ -1,17 +1,30 @@
 import { fetchCharacters } from "@/services/character.service";
 import { useCharacterStore } from "@/store/character-store";
-import { APIResults, CharacterResult } from "@/types/api-types";
+import {
+  APIResults,
+  CharacterResult,
+  ICharacterStatus,
+  ICharacterUpdate,
+} from "@/types/api-types";
 import { CharacterFilters } from "@/types/app-types";
 import { useCallback, useEffect, useState } from "react";
+import { ToastTitle, useToastImp } from "./useToast";
 
 export function useCharacter() {
-  const { characters, newCharacters, setCharacters } = useCharacterStore();
+  const {
+    characters,
+    newCharacters,
+    setCharacters,
+    setNewCharacter,
+    updateCharacter,
+  } = useCharacterStore();
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState("");
   const [maxPage, setMaxPage] = useState<number>();
   const [filters, setFilters] = useState<CharacterFilters>({});
   const [filteredNewCharacters, setFilteredNewCharacters] =
     useState<CharacterResult[]>(newCharacters);
+  const { showToast } = useToastImp();
 
   const getCharacters = async () => {
     try {
@@ -79,6 +92,45 @@ export function useCharacter() {
     [newCharacters, setFilteredNewCharacters]
   );
 
+  const createCharacter = (character: CharacterResult) => {
+    const newCharacter: CharacterResult = {
+      ...character,
+      id: Date.now(),
+      created: new Date(),
+    };
+    setNewCharacter(newCharacter);
+    showToast({
+      title: ToastTitle.Exito,
+      description: "Personaje creado satisfactoriamente.",
+    });
+  };
+
+  const updateCharacterBasicInfo = (
+    character: CharacterResult,
+    newValues: ICharacterUpdate
+  ) => {
+    const { name, species, type, gender, ...oldData } = character;
+    const updatedCharacter = { ...oldData, ...newValues };
+    updateCharacter(updatedCharacter);
+    showToast({
+      title: ToastTitle.Exito,
+      description: "Personaje actualizado satisfactoriamente.",
+    });
+  };
+
+  const updateCharacterStatus = (
+    character: CharacterResult,
+    newValues: ICharacterStatus
+  ) => {
+    const { status, ...dataChar } = character;
+    const updatedCharacter = { ...dataChar, ...newValues };
+    updateCharacter(updatedCharacter);
+    showToast({
+      title: ToastTitle.Exito,
+      description: "Estado del personaje actualizado satisfactoriamente.",
+    });
+  };
+
   const updateFilters = (filters: CharacterFilters) => {
     setFilters(filters);
     setPage(1);
@@ -98,6 +150,11 @@ export function useCharacter() {
     filterNewCharacters(filters);
   }, [page, filters, newCharacters]);
 
+  useEffect(() => {
+    if (!error) return;
+    showToast({ title: ToastTitle.Error, description: error });
+  }, [error]);
+
   return {
     error,
     characters,
@@ -107,5 +164,8 @@ export function useCharacter() {
     nextPage,
     prevPage,
     updateFilters,
+    createCharacter,
+    updateCharacterBasicInfo,
+    updateCharacterStatus,
   };
 }
