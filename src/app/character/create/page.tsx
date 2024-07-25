@@ -27,7 +27,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 export default function CreateCharacterPage() {
   const { setNewCharacter } = useCharacterStore();
   const router = useRouter();
-  const form = useForm<CharacterResult>({});
+  const form = useForm<CharacterResult>({
+    resolver: zodResolver(newCharacterSchema),
+  });
 
   const { errors } = form.formState;
 
