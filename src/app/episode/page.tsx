@@ -6,6 +6,7 @@ import { useEpisode } from "@/hooks/useEpisode";
 import { EditEpisodeBasicInfo } from "@/components/episode/editEpisodeBasicInfo";
 import { FilterData } from "@/components/episode/filterData";
 import { Options } from "@/components/episode/options";
+import { TableSkeleton } from "@/components/common/tableSkeleton";
 
 const TableData = lazy(() => import("../../components/episode/tableData"));
 
@@ -42,7 +43,7 @@ export default function EpisodePage() {
         />
       </section>
       <section className="w-full">
-        <Suspense fallback={<div>loading...</div>}>
+        <Suspense fallback={<TableSkeleton />}>
           <TableData
             page={page}
             filteredNewEpisodes={filteredNewEpisodes}

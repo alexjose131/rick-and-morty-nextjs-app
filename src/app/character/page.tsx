@@ -7,6 +7,7 @@ import { EditCharacterBasicInfo } from "@/components/character/editCharacterBasi
 import { EditCharacterStatus } from "@/components/character/editCharacterStatus";
 import { FilterData } from "@/components/character/filterData";
 import { Options } from "@/components/character/options";
+import { TableSkeleton } from "@/components/common/tableSkeleton";
 
 const TableData = lazy(() => import("../../components/character/tableData"));
 
@@ -39,8 +40,9 @@ export default function CharacterPage() {
           nextPage={nextPage}
         />
       </section>
+
       <section className="w-full">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<TableSkeleton />}>
           <TableData
             characters={characters}
             setCharacter={setCharacter}
