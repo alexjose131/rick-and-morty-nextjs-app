@@ -6,6 +6,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -33,7 +34,11 @@ export default function CreateCharacterPage() {
   const { errors } = form.formState;
 
   const handleSubmit: SubmitHandler<CharacterResult> = (data) => {
-    const newCharacter: CharacterResult = { ...data, id: Date.now() };
+    const newCharacter: CharacterResult = {
+      ...data,
+      id: Date.now(),
+      created: new Date(),
+    };
     setNewCharacter(newCharacter);
     router.push("/character");
   };
@@ -41,10 +46,10 @@ export default function CreateCharacterPage() {
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl mb-10">Nuevo personaje</h2>
-      <section className="flex justify-center items-center">
+      <section className="flex justify-center items-center w-2/5">
         <Form {...form}>
           <form
-            className="flex flex-col gap-2"
+            className="flex flex-col gap-2 w-full"
             onSubmit={form.handleSubmit(handleSubmit)}
           >
             <FormField
@@ -52,10 +57,12 @@ export default function CreateCharacterPage() {
               name="name"
               render={({ field }) => (
                 <FormItem className="w-full">
+                  <FormLabel htmlFor="name" className="text-gray-300">
+                    Nombre
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="Nombre"
                       className="placeholder:text-gray-300"
                       {...field}
                     />
@@ -72,10 +79,13 @@ export default function CreateCharacterPage() {
               name="status"
               render={({ field }) => (
                 <FormItem className="w-full">
+                  <FormLabel htmlFor="name" className="text-gray-300">
+                    Estado
+                  </FormLabel>
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="text-gray-300">
-                        <SelectValue placeholder="Estado" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
 
@@ -99,10 +109,12 @@ export default function CreateCharacterPage() {
               name="species"
               render={({ field }) => (
                 <FormItem className="w-full">
+                  <FormLabel htmlFor="name" className="text-gray-300">
+                    Especie
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="text"
-                      placeholder="Especie"
                       className="placeholder:text-gray-300"
                       {...field}
                     />
@@ -119,10 +131,12 @@ export default function CreateCharacterPage() {
               name="type"
               render={({ field }) => (
                 <FormItem className="w-full">
+                  <FormLabel htmlFor="name" className="text-gray-300">
+                    Tipo (Opcional)
+                  </FormLabel>
                   <FormControl>
                     <Input
                       type="type"
-                      placeholder="Tipo"
                       className="placeholder:text-gray-300"
                       {...field}
                     />
@@ -139,10 +153,13 @@ export default function CreateCharacterPage() {
               name="gender"
               render={({ field }) => (
                 <FormItem className="w-full">
+                  <FormLabel htmlFor="name" className="text-gray-300">
+                    Género
+                  </FormLabel>
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="text-gray-300">
-                        <SelectValue placeholder="Género" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
 
@@ -163,6 +180,13 @@ export default function CreateCharacterPage() {
 
             <Button type="submit" className="">
               Crear
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => router.back()}
+            >
+              Volver
             </Button>
           </form>
         </Form>

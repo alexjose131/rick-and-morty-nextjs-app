@@ -1,8 +1,8 @@
 import { fetchEpisodes } from "@/services/episodes.service";
 import { useEpisodeStore } from "@/store/episode-store";
 import { APIEpisodeResults, EpisodeResult } from "@/types/api-types";
-import { CharacterFilters, EpisodeFilters } from "@/types/app-types";
-import { useEffect, useState } from "react";
+import { EpisodeFilters } from "@/types/app-types";
+import { useCallback, useEffect, useState } from "react";
 
 export function useEpisode() {
   const { episodes, newEpisodes, setEpisodes } = useEpisodeStore((state) => ({
@@ -12,8 +12,8 @@ export function useEpisode() {
   }));
   const [page, setPage] = useState<number>(1);
   const [error, setError] = useState("");
-  const [maxPage, setMaxPage] = useState<number>();
-  const [filters, setFilters] = useState<CharacterFilters>({});
+  const [maxPage, setMaxPage] = useState<number>(-1);
+  const [filters, setFilters] = useState<EpisodeFilters>({});
   const [filteredNewEpisodes, setFilteredNewEpisodes] =
     useState<EpisodeResult[]>(newEpisodes);
 
@@ -37,51 +37,32 @@ export function useEpisode() {
     }
   };
 
-  /*const filterNewCharacters = useCallback(
-    (filters: CharacterFilters) => {
-      const { name = "", gender = "", species = "", type = "" } = filters;
+  const filterNewEpisodes = useCallback(
+    (filters: EpisodeFilters) => {
+      const { name = "", episode: episodeName = "" } = filters;
 
       // Filtrar los personajes basados en los filtros proporcionados
-      const filteredCharacters = newCharacters.filter((character) => {
+      const filteredEpisodes = newEpisodes.filter((episode) => {
         let matchesName = true;
-        let matchesGender = true;
-        let matchesSpecies = true;
-        let matchesType = true;
+        let matchesEpisode = true;
 
-        if (
-          name.trim() !== "" &&
-          gender.trim() !== "" &&
-          species.trim() !== "" &&
-          type.trim() !== ""
-        )
-          return;
+        if (name.trim() !== "" && episodeName.trim() !== "") return;
 
         if (name.trim() !== "") {
-          matchesName = character.name
-            .toLowerCase()
-            .includes(name.toLowerCase());
+          matchesName = episode.name.toLowerCase().includes(name.toLowerCase());
         }
-        if (gender.trim() !== "") {
-          matchesGender =
-            character.gender.toLowerCase() === gender.toLowerCase();
-        }
-        if (species.trim() !== "") {
-          matchesSpecies = character.species
+        if (episodeName.trim() !== "") {
+          matchesEpisode = episode.episode
             .toLowerCase()
-            .includes(species.toLowerCase());
-        }
-        if (type.trim() !== "") {
-          matchesType = character.type
-            .toLowerCase()
-            .includes(type.toLowerCase());
+            .includes(episode.episode.toLowerCase());
         }
 
-        return matchesName && matchesGender && matchesSpecies && matchesType;
+        return matchesName && matchesEpisode;
       });
-      setFilteredNewCharacters(filteredCharacters);
+      setFilteredNewEpisodes(filteredEpisodes);
     },
-    [newCharacters, setFilteredNewCharacters]
-  );*/
+    [newEpisodes, setFilteredNewEpisodes]
+  );
 
   const updateFilters = (filters: EpisodeFilters) => {
     setFilters(filters);
@@ -99,7 +80,7 @@ export function useEpisode() {
 
   useEffect(() => {
     getEpisodes();
-    //filterNewCharacters(filters);
+    filterNewEpisodes(filters);
   }, [page, filters, newEpisodes]);
 
   return {

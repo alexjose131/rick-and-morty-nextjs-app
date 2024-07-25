@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import {} from "lucide-react";
 import { useCharacterStore } from "@/store/character-store";
+import { useEpisodeStore } from "@/store/episode-store";
 
 const options = [
   {
@@ -25,6 +26,9 @@ export function Sidebar() {
   const { removeCharacters } = useCharacterStore((state) => ({
     removeCharacters: state.removeCharacters,
   }));
+  const { removeEpisodes } = useEpisodeStore((state) => ({
+    removeEpisodes: state.removeEpisodes,
+  }));
 
   const pathname = usePathname();
 
@@ -34,6 +38,7 @@ export function Sidebar() {
 
   const handleLogOut = () => {
     removeCharacters();
+    removeEpisodes();
     router.push("/auth/login");
   };
 
