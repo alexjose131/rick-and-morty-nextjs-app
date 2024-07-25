@@ -8,6 +8,7 @@ import { EditCharacterStatus } from "@/components/character/editCharacterStatus"
 import { FilterData } from "@/components/character/filterData";
 import { Options } from "@/components/character/options";
 import { TableSkeleton } from "@/components/common/tableSkeleton";
+import { PageTitle } from "@/components/common/pageTitle";
 
 const TableData = lazy(() => import("../../components/character/tableData"));
 
@@ -28,7 +29,7 @@ export default function CharacterPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-3xl mb-10">Personajes</h2>
+      <PageTitle title="PERSONAJES" />
       <section className="mb-5 w-full">
         <FilterData updateFilters={updateFilters} />
       </section>

@@ -7,6 +7,7 @@ import { EditEpisodeBasicInfo } from "@/components/episode/editEpisodeBasicInfo"
 import { FilterData } from "@/components/episode/filterData";
 import { Options } from "@/components/episode/options";
 import { TableSkeleton } from "@/components/common/tableSkeleton";
+import { PageTitle } from "@/components/common/pageTitle";
 
 const TableData = lazy(() => import("../../components/episode/tableData"));
 
@@ -30,7 +31,7 @@ export default function EpisodePage() {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-3xl mb-10">Episodios</h2>
+      <PageTitle title="EPISODIOS" />
       <section className="mb-5 w-full">
         <FilterData updateFilters={updateFilters} />
       </section>
