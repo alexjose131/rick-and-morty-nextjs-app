@@ -119,7 +119,7 @@ export function useEpisode() {
   useEffect(() => {
     getEpisodes();
     filterNewEpisodes(filters);
-  }, [page, filters, newEpisodes]);
+  }, [page, newEpisodes, filters]);
 
   useEffect(() => {
     if (!error) return;

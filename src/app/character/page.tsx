@@ -44,7 +44,6 @@ import { EditCharacterStatus } from "@/components/character/editCharacterStatus"
 export default function CharacterPage() {
   const router = useRouter();
   const {
-    error,
     characters,
     filteredNewCharacters,
     page,
@@ -238,12 +237,12 @@ export default function CharacterPage() {
                           <DropdownMenuItem
                             onClick={() => hadleEditBasic(item)}
                           >
-                            <EditIcon /> Editar datos básicos
+                            Editar datos básicos
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             onClick={() => hadleEditStatus(item)}
                           >
-                            <EditIcon /> Editar estado
+                            Editar estado
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -273,10 +272,10 @@ export default function CharacterPage() {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuItem onClick={() => hadleEditBasic(item)}>
-                          <EditIcon /> Editar datos básicos
+                          Editar datos básicos
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => hadleEditStatus(item)}>
-                          <EditIcon /> Editar estado
+                          Editar estado
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>

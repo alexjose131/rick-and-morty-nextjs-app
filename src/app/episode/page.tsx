@@ -1,12 +1,13 @@
 "use client";
 
 import { EpisodeResult } from "@/types/api-types";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useEpisode } from "@/hooks/useEpisode";
 import { EditEpisodeBasicInfo } from "@/components/episode/editEpisodeBasicInfo";
 import { FilterData } from "@/components/episode/filterData";
 import { Options } from "@/components/episode/options";
-import { TableData } from "@/components/episode/tableData";
+
+const TableData = lazy(() => import("../../components/episode/tableData"));
 
 export default function EpisodePage() {
   const {
@@ -41,13 +42,15 @@ export default function EpisodePage() {
         />
       </section>
       <section className="w-full">
-        <TableData
-          page={page}
-          filteredNewEpisodes={filteredNewEpisodes}
-          episodes={episodes}
-          setEpisode={updateEpisode}
-          setShowEditBasicInfo={setShowEditBasicInfo}
-        />
+        <Suspense fallback={<div>loading...</div>}>
+          <TableData
+            page={page}
+            filteredNewEpisodes={filteredNewEpisodes}
+            episodes={episodes}
+            setEpisode={updateEpisode}
+            setShowEditBasicInfo={setShowEditBasicInfo}
+          />
+        </Suspense>
       </section>
       {showEditBasicInfo && episode && (
         <EditEpisodeBasicInfo
