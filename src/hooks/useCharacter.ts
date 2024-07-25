@@ -33,7 +33,6 @@ export function useCharacter() {
 
       if (response.error && response.error === "There is nothing here") {
         setCharacters([]);
-        setError("Failed to fetch characters");
         return;
       }
 
@@ -50,7 +49,6 @@ export function useCharacter() {
     (filters: CharacterFilters) => {
       const { name = "", gender = "", species = "", type = "" } = filters;
 
-      // Filtrar los personajes basados en los filtros proporcionados
       const filteredCharacters = newCharacters.filter((character) => {
         let matchesName = true;
         let matchesGender = true;

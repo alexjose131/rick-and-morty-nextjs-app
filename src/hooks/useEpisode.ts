@@ -31,10 +31,9 @@ export function useEpisode() {
     try {
       setError("");
       const response = await fetchEpisodes(filters, page);
-      console.log(response);
+
       if (response.error && response.error === "There is nothing here") {
         setEpisodes([]);
-        setError("Failed to fetch episodes");
         return;
       }
 
