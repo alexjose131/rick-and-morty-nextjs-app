@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { OptionsIcon } from "@/components/common/Icons";
 import { Suspense, useEffect, useRef, useState } from "react";
+import { TableSkeleton } from "../common/tableSkeleton";
 
 interface TableDataProps {
   filteredNewEpisodes: EpisodeResult[];
@@ -75,7 +76,7 @@ const TableData = ({
 }: TableDataProps) => {
   return (
     <>
-      <Suspense fallback={<h2>Loading...</h2>}>
+      <Suspense fallback={<TableSkeleton />}>
         {[...filteredNewEpisodes, ...episodes].length > 0 ? (
           <Table>
             <TableHeader>
@@ -103,7 +104,7 @@ const TableData = ({
             </TableBody>
           </Table>
         ) : (
-          <label>No se han encontrado personajes</label>
+          <label>No se han encontrado episodios</label>
         )}
       </Suspense>
     </>
