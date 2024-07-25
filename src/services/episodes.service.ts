@@ -1,6 +1,5 @@
 import { EpisodeFilters } from "@/types/app-types";
-
-const CHARACTER_URL = "https://rickandmortyapi.com/api/episode";
+import { EPISODE_URL } from ".";
 
 export const fetchEpisodes = async (filters: EpisodeFilters, page: number) => {
   const { name, episode } = filters;
@@ -9,6 +8,6 @@ export const fetchEpisodes = async (filters: EpisodeFilters, page: number) => {
     name ? `&name=${name}` : ""
   }`;
 
-  const response = await fetch(`${CHARACTER_URL}?page=${page}` + filterString);
+  const response = await fetch(`${EPISODE_URL}?page=${page}` + filterString);
   return await response.json();
 };

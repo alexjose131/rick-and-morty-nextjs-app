@@ -1,6 +1,5 @@
 import { CharacterFilters } from "@/types/app-types";
-
-const CHARACTER_URL = "https://rickandmortyapi.com/api/character";
+import { CHARACTER_URL } from ".";
 
 export const fetchCharacters = async (
   filters: CharacterFilters,
