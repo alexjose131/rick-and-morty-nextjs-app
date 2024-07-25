@@ -10,11 +10,11 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <div>
+          <Toaster />
           <Sidebar />
         </div>
         <div className="py-10 px-5  md:px-20 h-svh">{children}</div>
       </body>
-      <Toaster />
     </html>
   );
 }
