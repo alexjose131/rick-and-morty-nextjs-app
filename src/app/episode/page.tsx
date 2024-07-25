@@ -29,6 +29,7 @@ import {
   EditIcon,
   OptionsIcon,
 } from "@/components/common/Icons";
+import { EditEpisodeBasicInfo } from "@/components/episode/editEpisodeBasicInfo";
 
 interface FilterDataProps {
   updateFilters: (data: EpisodeFilters) => void;
@@ -104,6 +105,7 @@ interface OptionsProps {
   prevPage: () => void;
   nextPage: () => void;
 }
+
 const Options = ({ page, maxPage, prevPage, nextPage }: OptionsProps) => {
   const {} = useEpisode();
   const router = useRouter();
@@ -142,21 +144,22 @@ interface TableDataProps {
   filteredNewEpisodes: EpisodeResult[];
   episodes: EpisodeResult[];
   page: number;
+  setShowEditBasicInfo: (open: boolean) => void;
+  setEpisode: (episode: EpisodeResult) => void;
 }
 
-const TableData = ({ filteredNewEpisodes, episodes, page }: TableDataProps) => {
-  const [showEditBasicInfo, setShowEditBasicInfo] = useState(false);
-  const [showEditStatus, setShowEditStatus] = useState(false);
-
+const TableData = ({
+  filteredNewEpisodes,
+  episodes,
+  page,
+  setShowEditBasicInfo,
+  setEpisode,
+}: TableDataProps) => {
   const handleEditBasic = (episode: EpisodeResult) => {
-    //setCharacter(character);
+    setEpisode(episode);
     setShowEditBasicInfo(true);
   };
 
-  const handleEditStatus = (episode: EpisodeResult) => {
-    //setCharacter(character);
-    setShowEditStatus(true);
-  };
   return (
     <>
       {[...filteredNewEpisodes, ...episodes].length > 0 ? (
@@ -185,11 +188,6 @@ const TableData = ({ filteredNewEpisodes, episodes, page }: TableDataProps) => {
                         <DropdownMenuItem onClick={() => handleEditBasic(item)}>
                           <EditIcon /> Editar datos básicos
                         </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => handleEditStatus(item)}
-                        >
-                          <EditIcon /> Editar estado
-                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -211,11 +209,6 @@ const TableData = ({ filteredNewEpisodes, episodes, page }: TableDataProps) => {
                         <DropdownMenuItem onClick={() => handleEditBasic(item)}>
                           <EditIcon /> Editar datos básicos
                         </DropdownMenuItem>
-                        <DropdownMenuItem
-                          onClick={() => handleEditStatus(item)}
-                        >
-                          <EditIcon /> Editar estado
-                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -232,8 +225,6 @@ const TableData = ({ filteredNewEpisodes, episodes, page }: TableDataProps) => {
 };
 
 export default function EpisodePage() {
-  const [episode, setEpisode] = useState<EpisodeResult>();
-
   const {
     page,
     filteredNewEpisodes,
@@ -243,6 +234,13 @@ export default function EpisodePage() {
     prevPage,
     nextPage,
   } = useEpisode();
+
+  const [showEditBasicInfo, setShowEditBasicInfo] = useState(false);
+  const [episode, setEpisode] = useState<EpisodeResult>();
+
+  const updateEpisode = (episodeSelected: EpisodeResult) => {
+    setEpisode(episodeSelected);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -263,8 +261,17 @@ export default function EpisodePage() {
           page={page}
           filteredNewEpisodes={filteredNewEpisodes}
           episodes={episodes}
+          setEpisode={updateEpisode}
+          setShowEditBasicInfo={setShowEditBasicInfo}
         />
       </section>
+      {showEditBasicInfo && episode && (
+        <EditEpisodeBasicInfo
+          episode={episode}
+          isOpen={showEditBasicInfo}
+          onClose={() => setShowEditBasicInfo(false)}
+        />
+      )}
     </div>
   );
 }
