@@ -38,7 +38,7 @@ export default function CreateEpisodePage() {
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl mb-10">Nuevo episodio</h2>
-      <section className="flex justify-center items-center w-2/5">
+      <section className="flex justify-center items-center w-full md:w-2/5">
         <Form {...form}>
           <form
             className="flex flex-col gap-2 w-full"
