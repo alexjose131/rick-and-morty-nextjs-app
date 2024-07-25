@@ -53,4 +53,6 @@ NEXT_PUBLIC_API_URL='https://rickandmortyapi.com/api'
 
 ### DEPLOYMENT
 
-4. [X] Despliegue el proyecto en un servidor como Vercel - url:
+4. [x] Despliegue el proyecto en un servidor como Vercel - url:
+
+## URL LINK = https://rick-and-morty-nextjs-app-taupe.vercel.app/
