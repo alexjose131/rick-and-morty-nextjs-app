@@ -93,9 +93,12 @@ export function useEpisode() {
     data: IEpisodeUpdate
   ) => {
     const { name, air_date, episode: episodeString, ...dataEp } = episode;
+    console.log(data.air_date);
     data.air_date = formatDate(data.air_date);
-    const updatedCharacter = { ...dataEp, ...data };
-    updateEpisode(updatedCharacter);
+    console.log(data.air_date);
+    const updatedEpisode = { ...dataEp, ...data };
+    console.log(updatedEpisode);
+    updateEpisode(updatedEpisode);
     showToast({
       title: ToastTitle.Exito,
       description: "Episodio actualizado satisfactoriamente.",
